@@ -2,20 +2,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-// Vertex Shader source code
-const char* vertex_shader_source = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-//Fragment Shader source code
-const char* fragment_shader_source = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(255.0f, 255.0f, 255.0f, 1.0f);\n"
-"}\n\0";
+#include "shaderClass.h"
+#include "VAO.h"
+#include "VBO.h"
+#include "EBO.h"
 
 int main()
 {
@@ -39,7 +29,7 @@ int main()
 		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f		// Inner down
 	};
 
-	constexpr GLuint indices[] =
+	GLuint indices[] =
 	{
 		0, 3, 5,	// Lower left triangle
 		3, 2, 4,	// Lower right triangle
@@ -64,82 +54,32 @@ int main()
 
 	// specify the viewport of OpenGl in the window
 	glViewport(0, 0, 800, 800);
-
-	/*--------------------------------------------------------------------------------------------*/
 	
-	// create vertex shader obj and get its reference (specify, what kind of shader i gonna use)
-	const GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-	// attach vertex shader src to the vertex shader obj
-	glShaderSource(vertex_shader, 1, &vertex_shader_source, nullptr);
-	// compile the vertex shader into machine code / compile vertex shader
-	glCompileShader(vertex_shader);
+	Shader shader_program("default.vert", "default.frag");
 
-	// create fragment shader obj and get its reference
-	const GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-	// attach fragment shader src to the fragment shader obj
-	glShaderSource(fragment_shader, 1, &fragment_shader_source, nullptr);
-	// compile the fragment shader into machine code
-	glCompileShader(fragment_shader);
+	VAO vao1;
+	vao1.Bind();
 
-	// create shader program obj and get its reference
-	const GLuint shader_program = glCreateProgram();
-	//attach the vertex and fragment shaders to the shader program
-	glAttachShader(shader_program, vertex_shader);
-	glAttachShader(shader_program, fragment_shader);
-	// wrap-up / link all the shaders together into the shader program
-	glLinkProgram(shader_program);
+	VBO vbo1(vertices, sizeof(vertices));
+	EBO ebo1(indices, sizeof(indices));
+
+	vao1.LinkVBO(vbo1, 0);
 	
-	// delete the now useless vertex and fragment shader objects
-	glDeleteShader(vertex_shader);
-	glDeleteShader(fragment_shader);
-
-	/*--------------------------------------------------------------------------------------------*/
-	
-	// create reference containers for the vertex array obj and the vertex buffer obj
-	GLuint vao, vbo, ebo;
-
-	// generate the vao and vbo with only 1 obj each
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-	glGenBuffers(1, &ebo);
-
-	// make the vao the current vertex array obj by binding it
-	glBindVertexArray(vao);
-
-	// bind the vbo specifying its a GL_ARRAY_BUFFER
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	// introduce the vertices into the vbo
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// configure the vertex attribute so that OpenGL knows how to read the VBO
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	// enable the vertex attribute so that OpenGL knows to use it
-	glEnableVertexAttribArray(0);
-
-	// bind both the vbo and vao to 0 so that we dont accidentally modify the vao and vbo we created
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	// specify the color of the background
-	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-	// clean the back buffer and assign the new color to it
-	glClear(GL_COLOR_BUFFER_BIT);
-	// swap the back buffer with the front buffer
-	glfwSwapBuffers(window);
+	vao1.Unbind();
+	vbo1.Unbind();
+	ebo1.Unbind();
 
 	// keep the window opened / main loop
 	while(!glfwWindowShouldClose(window))
 	{
+		// specify the color of the background
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		// clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// tell OpenGL which shader program we want to use
-		glUseProgram(shader_program);
+		shader_program.Activate();
 		// bind the vao so OpenGL knows to use it
-		glBindVertexArray(vao);
+		vao1.Bind();
 		// draw triangle using the GL_TRIANGLES primitive
 		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, nullptr);
 		/* glDrawArrays(GL_TRIANGLES, 0, 3); */
@@ -149,10 +89,10 @@ int main()
 	}
 
 	// delete all the objects we've created
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
-	glDeleteBuffers(1, &vbo);
-	glDeleteProgram(shader_program);
+	vao1.Delete();
+	vbo1.Delete();
+	ebo1.Delete();
+	shader_program.Delete();
 
 	// destroy window before ending the program
 	glfwDestroyWindow(window);
