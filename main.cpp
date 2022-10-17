@@ -9,15 +9,17 @@
 
 int main()
 {
+	/*--------------------------------------------INITIALIZATION----------------------------------------------------*/
 	// init glfw
 	glfwInit();
-	
 	// tell glfw what version of OpenGL we are using (3.3)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	// tell glfw we are using the CORE profile so we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	/*--------------------------------------------------------------------------------------------------------------*/
 
+	/*------------------------------------------VERTICES AND INDICES------------------------------------------------*/
 	// vertices coordinates
 	GLfloat vertices[] =
 	{
@@ -35,10 +37,12 @@ int main()
 		3, 2, 4,	// Lower right triangle
 		5, 4, 1		// Upper triangle
 	};
+	/*--------------------------------------------------------------------------------------------------------------*/
+
+	/*---------------------------------------------CREATE WINDOW----------------------------------------------------*/
 	
 	// create window
 	GLFWwindow* window = glfwCreateWindow(800, 800, "Window", nullptr, nullptr);
-
 	// check an issues while creating the window
 	if (window == nullptr)
 	{
@@ -48,13 +52,14 @@ int main()
 	}
 	// introduce the window into the current context
 	glfwMakeContextCurrent(window);
-
 	// load GLAD so it configures OpenGL
 	gladLoadGL();
-
 	// specify the viewport of OpenGl in the window
 	glViewport(0, 0, 800, 800);
 
+	/*--------------------------------------------------------------------------------------------------------------*/
+
+	/*------------------------------------------------MAIN FUNCTIONALITY--------------------------------------------*/
 	// create shader program
 	Shader shader_program("default.vert", "default.frag");
 
@@ -106,5 +111,7 @@ int main()
 
 	// terminate glfw before ending the program
 	glfwTerminate();
+	/*--------------------------------------------------------------------------------------------------------------*/
+	
 	return 0;
 }
