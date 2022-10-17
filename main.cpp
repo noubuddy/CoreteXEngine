@@ -54,21 +54,28 @@ int main()
 
 	// specify the viewport of OpenGl in the window
 	glViewport(0, 0, 800, 800);
-	
+
+	// create shader program
 	Shader shader_program("default.vert", "default.frag");
 
+	// create reference container for the vertex array object and bind it
 	VAO vao1;
 	vao1.Bind();
 
+	// introduce the vertices into the vbo
 	VBO vbo1(vertices, sizeof(vertices));
+
+	// introduce the indices into the ebo
 	EBO ebo1(indices, sizeof(indices));
 
+	// wrap-up / link all the shaders together into the shader program
 	vao1.LinkVBO(vbo1, 0);
-	
+
+	// unbinds
 	vao1.Unbind();
 	vbo1.Unbind();
 	ebo1.Unbind();
-
+	
 	// keep the window opened / main loop
 	while(!glfwWindowShouldClose(window))
 	{
@@ -76,7 +83,7 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		// clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-		// tell OpenGL which shader program we want to use
+		// activate shader program
 		shader_program.Activate();
 		// bind the vao so OpenGL knows to use it
 		vao1.Bind();
