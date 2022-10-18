@@ -7,6 +7,7 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
+#include "Texture.h"
 
 int main()
 {
@@ -24,10 +25,10 @@ int main()
 	// vertices coordinates
 	GLfloat vertices[] =
 	{
-		-0.5f, -0.5f,	0.0f,	1.0f,  0.0f,  0.0f,	// Lower left corner
-		-0.5f,	0.5f,	0.0f,	0.0f,  1.0f,  0.0f, // Lower right corner
-		 0.5f,	0.5f,	0.0f,	0.0f,  0.0f,  1.0f, // Upper right corner
-		 0.5f, -0.5f,	0.0f,	1.0f,  1.0f,  1.0f	// Lower left corner
+		-0.5f, -0.5f,	0.0f,	1.0f,  0.0f,  0.0f,  0.0f,  0.0f,	// Lower left corner
+		-0.5f,	0.5f,	0.0f,	0.0f,  1.0f,  0.0f,  0.0f,  1.0f,	// Upper left corner
+		 0.5f,	0.5f,	0.0f,	0.0f,  0.0f,  1.0f,  1.0f,  1.0f,	// Upper right corner
+		 0.5f, -0.5f,	0.0f,	1.0f,  1.0f,  1.0f,  1.0f,  0.0f	// Lower right corner
 	};
 
 	GLuint indices[] =
@@ -71,8 +72,9 @@ int main()
 	EBO ebo1(indices, sizeof(indices));
 
 	// links VBO attributes such as coordinates and colors to VAO
-	vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 6 * sizeof(float), nullptr);
-	vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
+	vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	// unbind all to prevent accidentally modifying them
 	vao1.Unbind();
 	vbo1.Unbind();
@@ -80,6 +82,10 @@ int main()
 
 	// gets ID of uniform called "scale"
 	const GLint uni_id = glGetUniformLocation(shader_program.id, "scale");
+
+	// texture
+	Texture texture("block.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+	texture.TexUnit(shader_program, "tex0", 0);
 	
 	// keep the window opened / main loop
 	while(!glfwWindowShouldClose(window))
@@ -92,6 +98,8 @@ int main()
 		shader_program.Activate();
 		// assigns a value to the uniform (Must be done after activating Shader Program)
 		glUniform1f(uni_id, 0.5f);
+		// binds texture so that is appears in rendering
+		texture.Bind();
 		// bind the vao so OpenGL knows to use it
 		vao1.Bind();
 		// draw primitives, number of indices, datatype of indices, index of indices
@@ -107,6 +115,7 @@ int main()
 	vao1.Delete();
 	vbo1.Delete();
 	ebo1.Delete();
+	texture.Delete();
 	shader_program.Delete();
 
 	// destroy window before ending the program
