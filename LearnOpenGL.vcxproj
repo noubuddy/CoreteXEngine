@@ -356,7 +356,7 @@
       <SDLCheck>true</SDLCheck>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="shaderClass.cpp">
+    <ClCompile Include="Shader.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -582,7 +582,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EBO.h" />
-    <ClInclude Include="shaderClass.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "shaderClass.h"
+#include "Shader.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
@@ -83,7 +83,7 @@ int main()
 	vbo1.Unbind();
 	ebo1.Unbind();
 
-	GLuint uniID = glGetUniformLocation(shader_program.id, "scale");
+	const GLint uni_id = glGetUniformLocation(shader_program.id, "scale");
 	
 	// keep the window opened / main loop
 	while(!glfwWindowShouldClose(window))
@@ -94,7 +94,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// activate shader program
 		shader_program.Activate();
-		glUniform1f(uniID, 0.5f);
+		glUniform1f(uni_id, 0.5f);
 		// bind the vao so OpenGL knows to use it
 		vao1.Bind();
 		// draw triangle using the GL_TRIANGLES primitive
