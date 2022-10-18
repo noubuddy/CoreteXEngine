@@ -23,8 +23,8 @@ Texture::Texture(const char* image, GLenum tex_type, GLenum slot, GLenum format,
     glTexParameteri(tex_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	// Configures the way the texture repeats (if it does at all)
-    glTexParameteri(tex_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(tex_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // glTexParameteri(tex_type, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    // glTexParameteri(tex_type, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 
 	// Extra lines in case you choose to use GL_CLAMP_TO_BORDER
     // float flat_color[] = {1.0f, 1.0f, 1.0f, 1.0f};
