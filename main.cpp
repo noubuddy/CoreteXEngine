@@ -16,8 +16,8 @@
 
 int main()
 {
-    int width = 1920;
-    int height = 1080;
+    int width = 1000;
+    int height = 1000;
     /*--------------------------------------------INITIALIZATION----------------------------------------------------*/
     // init glfw
     glfwInit();
@@ -37,10 +37,10 @@ int main()
         -0.5f,  0.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 0.0f, // B1
          0.5f,  0.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f, // C1
          0.5f,  0.0f,   0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 0.0f, // D1
-        -0.5f,  0.8f,   0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // A2
-        -0.5f,  0.8f,  -0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // B2
-         0.5f,  0.8f,  -0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // C2
-         0.5f,  0.8f,   0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 1.0f  // D2
+        -0.5f,  1.0f,   0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // A2
+        -0.5f,  1.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // B2
+         0.5f,  1.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // C2
+         0.5f,  1.0f,   0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 1.0f  // D2
     };
 
     GLuint indices[] =
@@ -95,6 +95,7 @@ int main()
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
     vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    
     // unbind all to prevent accidentally modifying them
     vao1.Unbind();
     vbo1.Unbind();
@@ -120,7 +121,7 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         // specify the color of the background
-        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+        glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         // clean the back buffer and assign the new color to it
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // tell OpenGL which Shader Program we want to use
@@ -128,7 +129,7 @@ int main()
 
         
         camera.Inputs(window);
-        camera.Matrix(60.0f, 0.1f, 100.0f, shader_program, "camMatrix");
+        camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix");
 
         // timer
         // double current_time = glfwGetTime();
