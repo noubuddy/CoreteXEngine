@@ -86,8 +86,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Sub-projects
 ################################################################################
 
-include_directories(C:/Users/Test_01/source/repos/LearnOpenGL/Libraries/include)
-link_directories(C:/Users/Test_01/source/repos/LearnOpenGL/Libraries/lib)
+include_directories(Libraries/include)
+link_directories(Libraries/lib)
 
 
 
