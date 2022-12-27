@@ -1,4 +1,4 @@
-﻿#version 330 core
+#version 330 core
 
 // Positions/Coordinates
 layout (location = 0) in vec3 aPos;
@@ -22,11 +22,11 @@ uniform mat4 camMatrix;
 
 void main()
 {
-   // Outputs the positions/coordinates of all vertices
-   gl_Position = camMatrix * vec4(aPos, 1.0f);
-//   gl_Position = vec4(aPos.x + aPos.x * scale, aPos.y + aPos.y * scale, aPos.z + aPos.z * scale, 1.0);
-   // Assigns the colors from the Vertex Data to "color"
-   color = aColor;
-   // Assigns the texture coordinates from the Vertex Data to "texCoord"
-   texCoord = aTex;
+    // Outputs the positions/coordinates of all vertices
+    gl_Position = camMatrix * vec4(aPos, 1.0f);
+    //   gl_Position = vec4(aPos.x + aPos.x * scale, aPos.y + aPos.y * scale, aPos.z + aPos.z * scale, 1.0);
+    // Assigns the colors from the Vertex Data to "color"
+    color = aColor;
+    // Assigns the texture coordinates from the Vertex Data to "texCoord"
+    texCoord = aTex;
 }

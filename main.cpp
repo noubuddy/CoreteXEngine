@@ -127,7 +127,7 @@ int main()
         // tell OpenGL which Shader Program we want to use
         shader_program.Activate();
 
-        
+        camera.speed = 0.001f;
         camera.Inputs(window);
         camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix");
 
