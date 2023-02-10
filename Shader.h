@@ -8,20 +8,16 @@
 #include<iostream>
 #include<cerrno>
 
-// Reads a text file and outputs a string with everything in the text file
-std::string get_file_contents(const char* filename);
-
 class Shader
 {
 public:
-    // Reference ID of the Shader Program
     GLuint id;
-    // Constructor that build the Shader Program from 2 different shaders
     Shader(const char* vertexFile, const char* fragmentFile);
-
-    // Activates the Shader Program
     void Activate();
-    // Deletes the Shader Program
     void Delete();
+
+private:
+    std::string ReadFile(const char* filename);
+    void CompileShader(unsigned int shader);
 };
 #endif
