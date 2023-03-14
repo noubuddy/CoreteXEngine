@@ -9,7 +9,12 @@ Camera::Camera(int width, int height, glm::vec3 position)
     Position = position;
 }
 
-void Camera::Matrix(float fov_deg, float near_plane, float far_plane, Shader& shader, const char* uniform)
+glm::mat4 Camera::GetViexMatrix()
+{
+    return glm::lookAt(Position, Position + Orientation, Up);
+}
+
+void Camera::Matrix(float fov_deg, float near_plane, float far_plane, Shader& shader, const char* uniform, glm::mat4 model)
 {
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
@@ -17,7 +22,7 @@ void Camera::Matrix(float fov_deg, float near_plane, float far_plane, Shader& sh
     view = glm::lookAt(Position, Position + Orientation, Up);
     projection = glm::perspective(glm::radians(fov_deg), (float)(width / height), near_plane, far_plane);
 
-    glUniformMatrix4fv(glGetUniformLocation(shader.id, uniform), 1, GL_FALSE, glm::value_ptr(projection * view));
+    glUniformMatrix4fv(glGetUniformLocation(shader.id, uniform), 1, GL_FALSE, glm::value_ptr(projection * view * model));
 }
 
 void Camera::Inputs(GLFWwindow* window)

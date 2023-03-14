@@ -29,6 +29,7 @@ int main()
         -0.5f,  0.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 0.0f, // B1
          0.5f,  0.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 0.0f, // C1
          0.5f,  0.0f,   0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 0.0f, // D1
+        
         -0.5f,  1.0f,   0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // A2
         -0.5f,  1.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // B2
          0.5f,  1.0f,  -0.5f,   1.0f, 0.0f, 0.0f,    0.0f, 1.0f, // C2
@@ -46,7 +47,22 @@ int main()
         3, 0, 4, 
         3, 7, 4,
         0, 1, 5,
-        0, 4, 5
+        0, 4, 5,
+        4, 5, 6,
+        4, 7, 6
+    };
+
+    glm::vec3 cubePositions[] = {
+        glm::vec3( 1.0f,  1.0f,  0.0f),
+        glm::vec3( 2.0f,  1.0f,  0.0f),
+        glm::vec3( 3.0f,  1.0f,  0.0f),
+        glm::vec3( 4.0f,  1.0f,  0.0f),
+        glm::vec3( 5.0f,  1.0f,  0.0f),
+        glm::vec3( 1.0f,  1.0f,  1.0f),
+        glm::vec3( 2.0f,  1.0f,  1.0f),
+        glm::vec3( 3.0f,  1.0f,  1.0f),
+        glm::vec3( 4.0f,  1.0f,  1.0f),
+        glm::vec3( 5.0f,  1.0f,  1.0f)
     };
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
@@ -83,19 +99,44 @@ int main()
 
     Camera camera(width, height, glm::vec3(0.0f, 0.5f, 5.0f));
 
+    shader_program.Activate();
+
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
+
     while (!glfwWindowShouldClose(window))
     {
+        // FPS couonter
+        double currentTime = glfwGetTime();
+        nbFrames++;
+        if ( currentTime - lastTime >= 1.0 ){
+            std::cout << 1000.0/double(nbFrames) << std::endl;
+            nbFrames = 0;
+            lastTime += 1.0;
+        }
+        
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        shader_program.Activate();
-        
+        camera.speed = 0.001f;
         camera.Inputs(window);
-        camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix");
 
         texture.Bind();
         vao1.Bind();
-        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, nullptr);
+
+        for (int i = 0; i < 10; i++)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            float angle = 20.0f * i;
+            
+            model = glm::translate(model, cubePositions[i]);
+            // model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            
+            camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
+            
+            glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, nullptr);
+        }
+        
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

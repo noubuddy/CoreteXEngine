@@ -8,6 +8,7 @@ out vec3 color;
 out vec2 texCoord;
 
 uniform mat4 camMatrix;
+uniform mat4 model;
 
 void main()
 {

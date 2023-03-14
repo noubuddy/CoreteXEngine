@@ -9,6 +9,8 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
 
+#include "Camera.h"
+#include "Camera.h"
 #include "Shader.h"
 
 
@@ -29,7 +31,8 @@ public:
 
     Camera(int width, int height, glm::vec3 position);
 
-    void Matrix(float fov_deg, float near_plane, float far_plane, Shader &shader, const char *uniform);
+    glm::mat4 GetViexMatrix();
+    void Matrix(float fov_deg, float near_plane, float far_plane, Shader &shader, const char *uniform, glm::mat4 model);
     void Inputs(GLFWwindow *window);
 };
 
