@@ -1,0 +1,53 @@
+name: LearnOpenGL
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        compiler: [gcc-10, msvc2019]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup OpenGL
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev
+
+    - name: Install GLFW
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install libglfw3-dev
+
+    - name: Install CMake
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get -y install cmake
+
+    - name: Install dependencies
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install -y glfw3
+        choco install -y opengl
+
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
+    - name: Run tests
+      run: |
+        cd build
+        ctest --output-on-failure
