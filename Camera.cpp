@@ -1,7 +1,5 @@
 ﻿#include "Camera.h"
 
-#include <windows.h>
-
 Camera::Camera(int width, int height, glm::vec3 position)
 {
     Camera::width = width;
