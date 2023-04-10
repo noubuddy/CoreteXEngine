@@ -2,44 +2,52 @@ name: LearnOpenGL
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+
+    runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        compiler: [gcc, clang, msvc]
+        os: [ubuntu-latest, windows-latest]
+        compiler: [gcc-10, msvc2019]
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up CMake ${{ matrix.compiler }}
-      uses: dawidd6/action-setup-cmake@v2.1.0
-      with:
-        cmake-version: '3.16.0'
-        compiler: ${{ matrix.compiler }}
+    - name: Setup OpenGL
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get install -y libglu1-mesa-dev mesa-common-dev
+
+    - name: Install GLFW
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install libglfw3-dev
+
+    - name: Install CMake
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt-get -y install cmake
+
+    - name: Install dependencies
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install -y glfw3
+        choco install -y opengl
 
     - name: Build
       run: |
-        cmake --build build --config ${{ matrix.build_config }}
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
 
-    - name: Test
+    - name: Run tests
       run: |
-        cmake --build build --config ${{ matrix.build_config }} --target test
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-
-    - name: Install
-      run: |
-        cmake --install build --prefix install
-      if: matrix.os == 'windows-latest'
-
-    - name: Archive
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_config }}
-        path: |
-          build/
+        cd build
+        ctest --output-on-failure
