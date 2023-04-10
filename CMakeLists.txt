@@ -89,30 +89,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 include_directories(Libraries/include)
 link_directories(Libraries/lib)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 set(PROJECT_NAME LearnOpenGL)
 
 ################################################################################
@@ -132,6 +108,10 @@ set(no_group_source_files
     "VAO.h"
     "VBO.cpp"
     "VBO.h"
+    "PerlinNoise.cpp"
+    "PerlinNoise.h"
+    "default.vert"
+    "default.frag"
 )
 source_group("" FILES ${no_group_source_files})
 
