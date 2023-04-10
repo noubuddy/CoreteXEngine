@@ -28,7 +28,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
-        sudo apt-get -y install libglfw3-dev
+        sudo apt-get -y install libglfw3-dev build-dep glfw3
 
     - name: Install CMake
       if: matrix.os == 'ubuntu-latest'
