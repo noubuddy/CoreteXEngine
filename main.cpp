@@ -13,6 +13,7 @@
 #include "EBO.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "PerlinNoise.h"
 
 GLfloat vertices[] =
 {
@@ -92,9 +93,36 @@ std::vector<glm::vec3> cubePositions
 
 int main()
 {
-    const int width = 1000;
-    const int height = 1000;
-    
+    const int width = 1300;
+    const int height = 1300;
+
+    // Constants for the grid size and cube size
+    // const int SIZE = 100;
+    const float CUBE_SIZE = 1;
+    const float THRESHOLD = 0.5;
+
+    // Constants for the noise parameters
+    const float NOISE_SCALE = 0.05;
+    // const int OCTAVES = 4;
+    // const float PERSISTENCE = 0.5;
+
+    // Initialize the Perlin noise object
+    PerlinNoise noise;
+    // PerlinNoise extra_noise;
+
+    std::vector<std::vector<float>> noiseValues(GRID_SIZE, std::vector<float>(GRID_SIZE));
+    for (int y = 0; y < GRID_SIZE; y++)
+    {
+        for (int x = 0; x < GRID_SIZE; x++)
+        {
+            for (int z = 0; z < GRID_SIZE; ++z)
+            {
+                float noiseValue = noise.noise(x * NOISE_SCALE, y * NOISE_SCALE, z * NOISE_SCALE);
+                noiseValues[y][x] = noiseValue;
+            }
+        }
+    }
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -127,11 +155,11 @@ int main()
     vbo1.Unbind();
     ebo1.Unbind();
 
-    Texture texture("block.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    Texture texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     texture.TexUnit(shader_program, "tex0", 0);
 
-    Texture texture2("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    texture2.TexUnit(shader_program, "tex0", 0);
+    // Texture texture2("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    // texture2.TexUnit(shader_program, "tex0", 0);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -157,20 +185,54 @@ int main()
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        camera.speed = 0.001f;
+        camera.speed = 0.01f;
         camera.Inputs(window);
 
         texture.Bind();
         vao1.Bind();
 
-        for (auto& cubePosition : cubePositions)
-        {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, cubePosition);
+        // for (auto& cubePosition : cubePositions)
+        // {
+        //     glm::mat4 model = glm::mat4(1.0f);
+        //     model = glm::translate(model, cubePosition);
+        //
+        //     camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
+        //     glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
+        // }   
 
-            camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
-            glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
+        for (int y = 0; y < GRID_SIZE; y++)
+        {
+            for (int x = 0; x < GRID_SIZE; x++)
+            {
+                // for (int z = 0; z < GRID_SIZE; z++)
+                // {
+                    if (noiseValues[y][x] > THRESHOLD)
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(glm::mat4(1.0f),
+                                               glm::vec3(x * CUBE_SIZE, noiseValues[y][x] * CUBE_SIZE, y * CUBE_SIZE));
+
+                        // GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
+                        // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+                        camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
+                        glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
+                        // glDrawArrays(GL_TRIANGLES, 0, 36);
+                    }
+                // }
+            }
         }
+
+        // texture2.Bind();
+        //
+        // for (int i = 0; i < cubePositions.size(); i++)
+        // {
+        //     glm::mat4 model = glm::mat4(1.0f);
+        //     model = glm::translate(model, cubePositions[i]);
+        //     
+        //     camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
+        //     glDrawArrays(GL_TRIANGLES, 8, 4);
+        // }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
