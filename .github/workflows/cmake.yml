@@ -38,7 +38,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         choco install -y glfw3
-        choco install -y opengl
+        choco install -y opengl32
 
     - name: Build
       run: |
