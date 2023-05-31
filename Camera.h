@@ -34,6 +34,16 @@ public:
     glm::mat4 GetViexMatrix();
     void Matrix(float fov_deg, float near_plane, float far_plane, Shader &shader, const char *uniform, glm::mat4 model);
     void Inputs(GLFWwindow *window);
+
+    // getters
+    float GetPosX();
+    float GetPosY();
+    float GetPosZ();
+
+    // setters
+    void SetPosX(float newPosX);
+    void SetPosY(float newPosY);
+    void SetPosZ(float newPosZ);
 };
 
 

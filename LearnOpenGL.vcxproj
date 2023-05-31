@@ -172,6 +172,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="Physics.cpp" />
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.h" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\EBO.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
@@ -205,6 +206,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
     </ClCompile>
     <ClInclude Include="PerlinNoise.h" />
+    <ClInclude Include="Physics.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\anton\source\repos\LearnOpenGL\ZERO_CHECK.vcxproj">

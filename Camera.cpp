@@ -99,3 +99,33 @@ void Camera::Inputs(GLFWwindow* window)
         firstClick = true;
     }
 }
+
+float Camera::GetPosX()
+{
+    return Position.x;
+}
+
+float Camera::GetPosY()
+{
+    return Position.y;
+}
+
+float Camera::GetPosZ()
+{
+    return Position.z;
+}
+
+void Camera::SetPosX(float newPosX)
+{
+    Position.x = newPosX;
+}
+
+void Camera::SetPosY(float newPosY)
+{
+    Position.y = newPosY;
+}
+
+void Camera::SetPosZ(float newPosZ)
+{
+    Position.z = newPosZ;
+}

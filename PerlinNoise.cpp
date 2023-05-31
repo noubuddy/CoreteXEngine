@@ -24,7 +24,8 @@ PerlinNoise::PerlinNoise() {
     }
 }
 
-float PerlinNoise::noise(float x, float y, float z) {
+float PerlinNoise::noise(float x, float y, float z)
+{
     // Calculate the grid cell coordinates and offsets
     int x0 = (int)floor(x);
     int y0 = (int)floor(y);
@@ -48,13 +49,13 @@ float PerlinNoise::noise(float x, float y, float z) {
 
     // Blend the noise values from the eight corners of the cube
     float res = lerp(w, lerp(v, lerp(u, grad(p[AA], dx, dy, dz),
-                                          grad(p[BA], dx - 1, dy, dz)),
-                                  lerp(u, grad(p[AB], dx, dy - 1, dz),
-                                          grad(p[BB], dx - 1, dy - 1, dz))),
-                          lerp(v, lerp(u, grad(p[AA + 1], dx, dy, dz - 1),
-                                          grad(p[BA + 1], dx - 1, dy, dz - 1)),
-                                  lerp(u, grad(p[AB + 1], dx, dy - 1, dz - 1),
-                                          grad(p[BB + 1], dx - 1, dy - 1, dz - 1))));
+                                     grad(p[BA], dx - 1, dy, dz)),
+                             lerp(u, grad(p[AB], dx, dy - 1, dz),
+                                  grad(p[BB], dx - 1, dy - 1, dz))),
+                     lerp(v, lerp(u, grad(p[AA + 1], dx, dy, dz - 1),
+                                  grad(p[BA + 1], dx - 1, dy, dz - 1)),
+                          lerp(u, grad(p[AB + 1], dx, dy - 1, dz - 1),
+                               grad(p[BB + 1], dx - 1, dy - 1, dz - 1))));
     // Rescale the output value to [0, 1]
     return (res + 1.0f) / 2.0f;
 }

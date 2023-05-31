@@ -90,16 +90,30 @@ std::vector<glm::vec3> cubePositions
         glm::vec3(5.0f, 1.0f, 1.0f)
     };
 
+enum BlockType
+{
+    GRASS,
+    WATER,
+    SAND
+};
+
+struct BlockData
+{
+    glm::vec3 Position;
+    BlockType Type;
+};
 
 int main()
 {
     const int width = 1300;
     const int height = 1300;
 
+    std::vector<BlockData> WorldData;
+
     // Constants for the grid size and cube size
     // const int SIZE = 100;
     const float CUBE_SIZE = 1;
-    const float THRESHOLD = 0.5;
+    const float THRESHOLD = 0.4;
 
     // Constants for the noise parameters
     const float NOISE_SCALE = 0.05;
@@ -111,6 +125,7 @@ int main()
     // PerlinNoise extra_noise;
 
     std::vector<std::vector<float>> noiseValues(GRID_SIZE, std::vector<float>(GRID_SIZE));
+    
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
@@ -119,6 +134,37 @@ int main()
             {
                 float noiseValue = noise.noise(x * NOISE_SCALE, y * NOISE_SCALE, z * NOISE_SCALE);
                 noiseValues[y][x] = noiseValue;
+            }
+        }
+    }
+    
+
+    for (int y = 0; y < GRID_SIZE; y++)
+    {
+        for (int x = 0; x < GRID_SIZE; x++)
+        {
+            if (noiseValues[y][x] > THRESHOLD)
+            {
+                std::string numStr = std::to_string(noiseValues[y][x]);
+                char afterDot = numStr[numStr.find('.') + 1];
+                int value = afterDot - '0';
+                
+                BlockData blockData{};
+                blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
+                blockData.Type = GRASS;
+                WorldData.insert(WorldData.end(), blockData);
+            }
+
+            else
+            {
+                std::string numStr = std::to_string(noiseValues[y][x]);
+                char afterDot = numStr[numStr.find('.') + 1];
+                int value = afterDot - '0';
+                
+                BlockData blockData{};
+                blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
+                blockData.Type = WATER;
+                WorldData.insert(WorldData.end(), blockData);
             }
         }
     }
@@ -155,93 +201,94 @@ int main()
     vbo1.Unbind();
     ebo1.Unbind();
 
-    Texture texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    texture.TexUnit(shader_program, "tex0", 0);
+    Texture grass("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    grass.TexUnit(shader_program, "tex0", 0);
 
-    // Texture texture2("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    // texture2.TexUnit(shader_program, "tex0", 0);
+    Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    water.TexUnit(shader_program, "tex0", 0);
+
+    Texture sand("sand.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    sand.TexUnit(shader_program, "tex0", 0);
 
     glEnable(GL_DEPTH_TEST);
 
-    Camera camera(width, height, glm::vec3(0.0f, 0.5f, 5.0f));
+    Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
     shader_program.Activate();
 
     double lastTime = glfwGetTime();
-    int nbFrames = 0;
+    float deltaTime;
 
     while (!glfwWindowShouldClose(window))
     {
-        // FPS couonter
-        const double currentTime = glfwGetTime();
-        nbFrames++;
-        if (currentTime - lastTime >= 1.0)
-        {
-            std::cout << 1000.0 / double(nbFrames) << std::endl;
-            nbFrames = 0;
-            lastTime += 1.0;
-        }
+        // calculate delta time
+        double currentTime = glfwGetTime();
+        deltaTime = float(currentTime - lastTime);
+        lastTime = currentTime;
 
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        camera.speed = 0.01f;
+        camera.speed = 0.5f;
         camera.Inputs(window);
-
-        texture.Bind();
+        float gravity = 9.8f;
+        
         vao1.Bind();
 
-        // for (auto& cubePosition : cubePositions)
-        // {
-        //     glm::mat4 model = glm::mat4(1.0f);
-        //     model = glm::translate(model, cubePosition);
-        //
-        //     camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
-        //     glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
-        // }   
-
-        for (int y = 0; y < GRID_SIZE; y++)
+        for (auto block : WorldData)
         {
-            for (int x = 0; x < GRID_SIZE; x++)
+            if (block.Type == GRASS)
             {
-                // for (int z = 0; z < GRID_SIZE; z++)
-                // {
-                    if (noiseValues[y][x] > THRESHOLD)
-                    {
-                        glm::mat4 model = glm::mat4(1.0f);
-                        model = glm::translate(glm::mat4(1.0f),
-                                               glm::vec3(x * CUBE_SIZE, noiseValues[y][x] * CUBE_SIZE, y * CUBE_SIZE));
+                grass.Bind();
+            }
+            else if (block.Type == WATER)
+            {
+                water.Bind();
+            }
 
-                        // GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
-                        // glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(glm::mat4(1.0f),
+                                   block.Position);
+            
+            camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
+            glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, nullptr);
+        }
 
-                        camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
-                        glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
-                        // glDrawArrays(GL_TRIANGLES, 0, 36);
-                    }
-                // }
+        glm::vec3 playerPos = glm::vec3(std::round(camera.GetPosX()), std::round(camera.GetPosY()), std::round(camera.GetPosZ()));
+        glm::vec3 lowerBlock = glm::vec3(playerPos.x, playerPos.y - 2, playerPos.z);
+
+        std::cout << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << std::endl;
+        std::cout << lowerBlock.x << ", " << lowerBlock.y << ", " << lowerBlock.z << std::endl << std::endl;
+
+        bool bIsPlayerOnBlock = false;
+        
+        for (auto block : WorldData)
+        {
+            if (block.Position == lowerBlock)
+            {
+                bIsPlayerOnBlock = true;
+                break;
             }
         }
 
-        // texture2.Bind();
-        //
-        // for (int i = 0; i < cubePositions.size(); i++)
-        // {
-        //     glm::mat4 model = glm::mat4(1.0f);
-        //     model = glm::translate(model, cubePositions[i]);
-        //     
-        //     camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
-        //     glDrawArrays(GL_TRIANGLES, 8, 4);
-        // }
-
+        if (!bIsPlayerOnBlock)
+        {
+            camera.SetPosY(camera.GetPosY() - (gravity * deltaTime));
+        }
+        
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+    
+
     vao1.Delete();
     vbo1.Delete();
     ebo1.Delete();
-    texture.Delete();
+
+    grass.Delete();
+    water.Delete();
+
     shader_program.Delete();
     glfwDestroyWindow(window);
     glfwTerminate();
