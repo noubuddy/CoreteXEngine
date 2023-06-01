@@ -155,6 +155,18 @@ int main()
                 WorldData.insert(WorldData.end(), blockData);
             }
 
+            else if (noiseValues[y][x] > 0.37 && noiseValues[y][x] < THRESHOLD)
+            {
+                std::string numStr = std::to_string(noiseValues[y][x]);
+                char afterDot = numStr[numStr.find('.') + 1];
+                int value = afterDot - '0';
+                
+                BlockData blockData{};
+                blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
+                blockData.Type = SAND;
+                WorldData.insert(WorldData.end(), blockData);
+            }
+
             else
             {
                 std::string numStr = std::to_string(noiseValues[y][x]);
@@ -207,7 +219,7 @@ int main()
     Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     water.TexUnit(shader_program, "tex0", 0);
 
-    Texture sand("sand.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     sand.TexUnit(shader_program, "tex0", 0);
 
     glEnable(GL_DEPTH_TEST);
@@ -241,6 +253,10 @@ int main()
             {
                 grass.Bind();
             }
+            else if (block.Type == SAND)
+            {
+                sand.Bind();
+            }
             else if (block.Type == WATER)
             {
                 water.Bind();
@@ -271,10 +287,10 @@ int main()
             }
         }
 
-        if (!bIsPlayerOnBlock)
-        {
-            camera.SetPosY(camera.GetPosY() - (gravity * deltaTime));
-        }
+        // if (!bIsPlayerOnBlock)
+        // {
+        //     camera.SetPosY(camera.GetPosY() - (gravity * deltaTime));
+        // }
         
         glfwSwapBuffers(window);
         glfwPollEvents();
