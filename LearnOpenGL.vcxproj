@@ -171,8 +171,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.cpp" />
-    <ClCompile Include="PerlinNoise.cpp" />
-    <ClCompile Include="Physics.cpp" />
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.h" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\EBO.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
@@ -197,6 +195,15 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
     </ClCompile>
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\PerlinNoise.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\PerlinNoise.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.inl" />
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\default.vert">
+    </None>
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\default.frag">
+    </None>
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\glad.c">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
@@ -205,8 +212,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
     </ClCompile>
-    <ClInclude Include="PerlinNoise.h" />
-    <ClInclude Include="Physics.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\anton\source\repos\LearnOpenGL\ZERO_CHECK.vcxproj">
@@ -215,10 +220,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="default.frag" />
-    <Content Include="default.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

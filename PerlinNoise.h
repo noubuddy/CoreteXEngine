@@ -5,7 +5,7 @@
 #include <ctime>
 #include <iostream>
 
-#define GRID_SIZE 100
+#define GRID_SIZE 200
 #define CELL_SIZE 8
 #define SAMPLES_PER_CELL 4
 #define M_PI 3.14159265358979323846

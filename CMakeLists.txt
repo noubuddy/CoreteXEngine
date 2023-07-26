@@ -110,6 +110,9 @@ set(no_group_source_files
     "VBO.h"
     "PerlinNoise.cpp"
     "PerlinNoise.h"
+    "Vertices.h"
+    "Vertices.cpp"
+    "Vertices.inl"
     "default.vert"
     "default.frag"
 )

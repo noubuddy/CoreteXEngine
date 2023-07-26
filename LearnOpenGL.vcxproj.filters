@@ -8,6 +8,8 @@
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Texture.cpp" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\VAO.cpp" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\PerlinNoise.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.cpp" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -22,9 +24,16 @@
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Texture.h" />
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VAO.h" />
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\PerlinNoise.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.inl" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\anton\source\repos\LearnOpenGL\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\default.vert" />
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\default.frag" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

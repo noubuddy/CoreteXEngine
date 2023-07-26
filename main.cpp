@@ -2,7 +2,6 @@
 #include <vector>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <stb/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -14,45 +13,48 @@
 #include "Texture.h"
 #include "Camera.h"
 #include "PerlinNoise.h"
+// #include "Vertices.inl"
+#include "Vertices.h"
 
-GLfloat vertices[] =
-{
-    // Front Face
-    -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-    0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
-    0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
-    -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
 
-    // Back Face
-    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
-    0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-    0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
-    -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
-
-    // Top Face
-    0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-left
-    -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-right
-    -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-right
-    0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-left
-
-    // Bottom Face
-    -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
-    0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-    0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
-    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
-
-    // Right face
-    0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-    0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-    0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-
-    // Left face
-    -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-    -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f
-};
+// GLfloat vertices[] =
+// {
+//     // Front Face
+//     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
+//     0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
+//     0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
+//     -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
+//
+//     // Back Face
+//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
+//     0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
+//     0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
+//     -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
+//
+//     // Top Face
+//     0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-left
+//     -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-right
+//     -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-right
+//     0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-left
+//
+//     // Bottom Face
+//     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
+//     0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
+//     0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
+//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
+//
+//     // Right face
+//     0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+//     0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+//     0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+//     0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+//
+//     // Left face
+//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+//     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+//     -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+//     -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f
+// };
 
 GLuint indices[] =
 {
@@ -75,6 +77,8 @@ GLuint indices[] =
     20, 21, 22,
     20, 23, 22,
 };
+
+GLfloat vertices2[192];
 
 std::vector<glm::vec3> cubePositions
     = {
@@ -105,11 +109,19 @@ struct BlockData
 
 int main()
 {
-    const int width = 1300;
-    const int height = 1300;
+    const int width = 2560;
+    const int height = 1440;
 
     std::vector<BlockData> WorldData;
-
+    
+    int VerticesAmount;
+    GLfloat* VerticesRef = Vertices::GetVertices(VerticesAmount);
+    
+    for (int i = 0; i < VerticesAmount; i++)
+    {
+        vertices2[i] = *(VerticesRef + i);
+    }
+    
     // Constants for the grid size and cube size
     // const int SIZE = 100;
     const float CUBE_SIZE = 1;
@@ -125,7 +137,7 @@ int main()
     // PerlinNoise extra_noise;
 
     std::vector<std::vector<float>> noiseValues(GRID_SIZE, std::vector<float>(GRID_SIZE));
-    
+
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
@@ -137,7 +149,7 @@ int main()
             }
         }
     }
-    
+
 
     for (int y = 0; y < GRID_SIZE; y++)
     {
@@ -148,7 +160,7 @@ int main()
                 std::string numStr = std::to_string(noiseValues[y][x]);
                 char afterDot = numStr[numStr.find('.') + 1];
                 int value = afterDot - '0';
-                
+
                 BlockData blockData{};
                 blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
                 blockData.Type = GRASS;
@@ -160,7 +172,7 @@ int main()
                 std::string numStr = std::to_string(noiseValues[y][x]);
                 char afterDot = numStr[numStr.find('.') + 1];
                 int value = afterDot - '0';
-                
+
                 BlockData blockData{};
                 blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
                 blockData.Type = SAND;
@@ -172,7 +184,7 @@ int main()
                 std::string numStr = std::to_string(noiseValues[y][x]);
                 char afterDot = numStr[numStr.find('.') + 1];
                 int value = afterDot - '0';
-                
+
                 BlockData blockData{};
                 blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
                 blockData.Type = WATER;
@@ -187,7 +199,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
-    if (window == nullptr)
+    if (!window)
     {
         std::cout << "Failed to create window \n";
         glfwTerminate();
@@ -202,8 +214,8 @@ int main()
     VAO vao1;
     vao1.Bind();
 
-    VBO vbo1(vertices, sizeof(vertices));
-    EBO ebo1(indices, sizeof(indices));
+    VBO vbo1(vertices2, sizeof vertices2);
+    EBO ebo1(indices, sizeof indices);
 
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
     vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -213,8 +225,11 @@ int main()
     vbo1.Unbind();
     ebo1.Unbind();
 
-    Texture grass("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    grass.TexUnit(shader_program, "tex0", 0);
+    Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    grass_top.TexUnit(shader_program, "tex0", 0);
+
+    // Texture grass_side("block.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    // grass_side.TexUnit(shader_program, "tex1", 0);
 
     Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     water.TexUnit(shader_program, "tex0", 0);
@@ -241,17 +256,17 @@ int main()
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        camera.speed = 0.5f;
+        camera.speed = 0.6f;
         camera.Inputs(window);
         float gravity = 9.8f;
-        
+
         vao1.Bind();
 
         for (auto block : WorldData)
         {
             if (block.Type == GRASS)
             {
-                grass.Bind();
+                grass_top.Bind();
             }
             else if (block.Type == SAND)
             {
@@ -265,19 +280,20 @@ int main()
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(glm::mat4(1.0f),
                                    block.Position);
-            
-            camera.Matrix(80.0f, 0.1f, 100.0f, shader_program, "camMatrix", model);
+
+            camera.Matrix(80.0f, 0.1f, 300.0f, shader_program, "camMatrix", model);
             glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, nullptr);
         }
 
-        glm::vec3 playerPos = glm::vec3(std::round(camera.GetPosX()), std::round(camera.GetPosY()), std::round(camera.GetPosZ()));
+        glm::vec3 playerPos = glm::vec3(std::round(camera.GetPosX()), std::round(camera.GetPosY()),
+                                        std::round(camera.GetPosZ()));
         glm::vec3 lowerBlock = glm::vec3(playerPos.x, playerPos.y - 2, playerPos.z);
 
-        std::cout << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << std::endl;
-        std::cout << lowerBlock.x << ", " << lowerBlock.y << ", " << lowerBlock.z << std::endl << std::endl;
+        // std::cout << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << std::endl;
+        // std::cout << lowerBlock.x << ", " << lowerBlock.y << ", " << lowerBlock.z << std::endl << std::endl;
 
         bool bIsPlayerOnBlock = false;
-        
+
         for (auto block : WorldData)
         {
             if (block.Position == lowerBlock)
@@ -291,18 +307,17 @@ int main()
         // {
         //     camera.SetPosY(camera.GetPosY() - (gravity * deltaTime));
         // }
-        
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    
 
     vao1.Delete();
     vbo1.Delete();
     ebo1.Delete();
 
-    grass.Delete();
+    grass_top.Delete();
     water.Delete();
 
     shader_program.Delete();

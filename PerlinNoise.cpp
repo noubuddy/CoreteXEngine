@@ -1,6 +1,8 @@
 #include "PerlinNoise.h"
 
 PerlinNoise::PerlinNoise() {
+    srand((unsigned) time(NULL));
+    
     // Initialize permutation table
     for (int i = 0; i < GRID_SIZE; i++) {
         p[i] = i;
@@ -14,7 +16,6 @@ PerlinNoise::PerlinNoise() {
     }
 
     // Generate gradient vectors
-    srand(time(NULL));
     for (int i = 0; i < GRID_SIZE; i++) {
         for (int j = 0; j < GRID_SIZE; j++) {
             float angle = rand() * 2 * M_PI / RAND_MAX;
