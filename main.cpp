@@ -13,48 +13,7 @@
 #include "Texture.h"
 #include "Camera.h"
 #include "PerlinNoise.h"
-// #include "Vertices.inl"
 #include "Vertices.h"
-
-
-// GLfloat vertices[] =
-// {
-//     // Front Face
-//     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-//     0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
-//     0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
-//     -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
-//
-//     // Back Face
-//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
-//     0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-//     0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
-//     -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
-//
-//     // Top Face
-//     0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-left
-//     -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-right
-//     -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-right
-//     0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-left
-//
-//     // Bottom Face
-//     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // Bottom-right
-//     0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
-//     0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // Top-left
-//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // Top-right
-//
-//     // Right face
-//     0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-//     0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-//     0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-//     0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-//
-//     // Left face
-//     -0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-//     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-//     -0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-//     -0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f
-// };
 
 GLuint indices[] =
 {
@@ -78,21 +37,7 @@ GLuint indices[] =
     20, 23, 22,
 };
 
-GLfloat vertices2[192];
-
-std::vector<glm::vec3> cubePositions
-    = {
-        glm::vec3(1.0f, 1.0f, 0.0f),
-        glm::vec3(2.0f, 1.0f, 0.0f),
-        glm::vec3(3.0f, 1.0f, 0.0f),
-        glm::vec3(4.0f, 1.0f, 0.0f),
-        glm::vec3(5.0f, 1.0f, 0.0f),
-        glm::vec3(1.0f, 1.0f, 1.0f),
-        glm::vec3(2.0f, 1.0f, 1.0f),
-        glm::vec3(3.0f, 1.0f, 1.0f),
-        glm::vec3(4.0f, 1.0f, 1.0f),
-        glm::vec3(5.0f, 1.0f, 1.0f)
-    };
+GLfloat Vertices[192];
 
 enum BlockType
 {
@@ -113,83 +58,65 @@ int main()
     const int height = 1440;
 
     std::vector<BlockData> WorldData;
-    
+
     int VerticesAmount;
     GLfloat* VerticesRef = Vertices::GetVertices(VerticesAmount);
-    
+
     for (int i = 0; i < VerticesAmount; i++)
     {
-        vertices2[i] = *(VerticesRef + i);
+        Vertices[i] = *(VerticesRef + i);
     }
-    
+
     // Constants for the grid size and cube size
-    // const int SIZE = 100;
-    const float CUBE_SIZE = 1;
-    const float THRESHOLD = 0.4;
+    const float CUBE_SIZE = 1.f;
+    const float THRESHOLD = 0.4f;
 
     // Constants for the noise parameters
-    const float NOISE_SCALE = 0.05;
-    // const int OCTAVES = 4;
-    // const float PERSISTENCE = 0.5;
+    const float NOISE_SCALE = 0.05f;
 
     // Initialize the Perlin noise object
     PerlinNoise noise;
-    // PerlinNoise extra_noise;
-
     std::vector<std::vector<float>> noiseValues(GRID_SIZE, std::vector<float>(GRID_SIZE));
 
+    // Fill noiseValues array
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
         {
             for (int z = 0; z < GRID_SIZE; ++z)
             {
-                float noiseValue = noise.noise(x * NOISE_SCALE, y * NOISE_SCALE, z * NOISE_SCALE);
-                noiseValues[y][x] = noiseValue;
+                noiseValues[y][x] = noise.noise(x * NOISE_SCALE, y * NOISE_SCALE, z * NOISE_SCALE);
             }
         }
     }
 
-
+    // Generate world array
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
         {
-            if (noiseValues[y][x] > THRESHOLD)
-            {
-                std::string numStr = std::to_string(noiseValues[y][x]);
-                char afterDot = numStr[numStr.find('.') + 1];
-                int value = afterDot - '0';
+            float noiseValue = noiseValues[y][x];
+            
+            // get first digit after the dot
+            float afterDotValue = static_cast<int>(std::floor(std::fabs(noiseValue) * 10)) % 10;
 
-                BlockData blockData{};
-                blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
+            BlockData blockData{};
+            blockData.Position = glm::vec3(x * CUBE_SIZE, afterDotValue * CUBE_SIZE, y * CUBE_SIZE);
+
+            if (noiseValue > THRESHOLD)
+            {
                 blockData.Type = GRASS;
-                WorldData.insert(WorldData.end(), blockData);
             }
-
-            else if (noiseValues[y][x] > 0.37 && noiseValues[y][x] < THRESHOLD)
+            else if (noiseValue > 0.37 && noiseValue < THRESHOLD)
             {
-                std::string numStr = std::to_string(noiseValues[y][x]);
-                char afterDot = numStr[numStr.find('.') + 1];
-                int value = afterDot - '0';
-
-                BlockData blockData{};
-                blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
                 blockData.Type = SAND;
-                WorldData.insert(WorldData.end(), blockData);
             }
-
             else
             {
-                std::string numStr = std::to_string(noiseValues[y][x]);
-                char afterDot = numStr[numStr.find('.') + 1];
-                int value = afterDot - '0';
-
-                BlockData blockData{};
-                blockData.Position = glm::vec3(x * CUBE_SIZE, value * CUBE_SIZE, y * CUBE_SIZE);
                 blockData.Type = WATER;
-                WorldData.insert(WorldData.end(), blockData);
             }
+
+            WorldData.emplace_back(blockData);
         }
     }
 
@@ -198,7 +125,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(width, height, "Window", glfwGetPrimaryMonitor(), nullptr);
     if (!window)
     {
         std::cout << "Failed to create window \n";
@@ -214,7 +141,7 @@ int main()
     VAO vao1;
     vao1.Bind();
 
-    VBO vbo1(vertices2, sizeof vertices2);
+    VBO vbo1(Vertices, sizeof Vertices);
     EBO ebo1(indices, sizeof indices);
 
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
@@ -228,53 +155,40 @@ int main()
     Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     grass_top.TexUnit(shader_program, "tex0", 0);
 
-    // Texture grass_side("block.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    // grass_side.TexUnit(shader_program, "tex1", 0);
-
     Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     water.TexUnit(shader_program, "tex0", 0);
 
     Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     sand.TexUnit(shader_program, "tex0", 0);
-
-    glEnable(GL_DEPTH_TEST);
-
+    
     Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
     shader_program.Activate();
-
-    double lastTime = glfwGetTime();
-    float deltaTime;
+    
+    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window))
     {
-        // calculate delta time
-        double currentTime = glfwGetTime();
-        deltaTime = float(currentTime - lastTime);
-        lastTime = currentTime;
-
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         camera.speed = 0.6f;
         camera.Inputs(window);
-        float gravity = 9.8f;
-
         vao1.Bind();
 
         for (auto block : WorldData)
         {
-            if (block.Type == GRASS)
+            switch (block.Type)
             {
-                grass_top.Bind();
-            }
-            else if (block.Type == SAND)
-            {
-                sand.Bind();
-            }
-            else if (block.Type == WATER)
-            {
-                water.Bind();
+                case GRASS:
+                    grass_top.Bind();
+                    break;
+                case SAND:
+                    sand.Bind();
+                    break;
+                case WATER:
+                    water.Bind();
+                    break;
             }
 
             glm::mat4 model = glm::mat4(1.0f);
@@ -282,31 +196,8 @@ int main()
                                    block.Position);
 
             camera.Matrix(80.0f, 0.1f, 300.0f, shader_program, "camMatrix", model);
-            glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, nullptr);
+            glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
         }
-
-        glm::vec3 playerPos = glm::vec3(std::round(camera.GetPosX()), std::round(camera.GetPosY()),
-                                        std::round(camera.GetPosZ()));
-        glm::vec3 lowerBlock = glm::vec3(playerPos.x, playerPos.y - 2, playerPos.z);
-
-        // std::cout << playerPos.x << ", " << playerPos.y << ", " << playerPos.z << std::endl;
-        // std::cout << lowerBlock.x << ", " << lowerBlock.y << ", " << lowerBlock.z << std::endl << std::endl;
-
-        bool bIsPlayerOnBlock = false;
-
-        for (auto block : WorldData)
-        {
-            if (block.Position == lowerBlock)
-            {
-                bIsPlayerOnBlock = true;
-                break;
-            }
-        }
-
-        // if (!bIsPlayerOnBlock)
-        // {
-        //     camera.SetPosY(camera.GetPosY() - (gravity * deltaTime));
-        // }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
