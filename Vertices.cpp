@@ -1,14 +1,7 @@
 #include "Vertices.h"
 #include "Vertices.inl"
 
-GLfloat* Vertices::GetVertices(int& VerticesAmount)
+std::vector<GLfloat> Vertices::GetVertices()
 {
-    VerticesAmount = 0;
-    
-    if (sizeof vertices != 0)
-    {
-        VerticesAmount = sizeof vertices / sizeof vertices[0];
-    }
-    
     return vertices;
 }

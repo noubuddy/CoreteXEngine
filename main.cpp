@@ -58,14 +58,8 @@ int main()
     const int height = 1440;
 
     std::vector<BlockData> WorldData;
-
-    int VerticesAmount;
-    GLfloat* VerticesRef = Vertices::GetVertices(VerticesAmount);
-
-    for (int i = 0; i < VerticesAmount; i++)
-    {
-        Vertices[i] = *(VerticesRef + i);
-    }
+    
+    std::vector<GLfloat> vertices = Vertices::GetVertices();
 
     // Constants for the grid size and cube size
     const float CUBE_SIZE = 1.f;
@@ -125,7 +119,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "Window", glfwGetPrimaryMonitor(), nullptr);
+    GLFWwindow* window = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
     if (!window)
     {
         std::cout << "Failed to create window \n";
@@ -141,7 +135,7 @@ int main()
     VAO vao1;
     vao1.Bind();
 
-    VBO vbo1(Vertices, sizeof Vertices);
+    VBO vbo1(vertices);
     EBO ebo1(indices, sizeof indices);
 
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);

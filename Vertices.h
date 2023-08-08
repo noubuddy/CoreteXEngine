@@ -1,13 +1,14 @@
 #ifndef VERTICES_CLASS_H
 #define VERTICES_CLASS_H
 
+#include <vector>
 #include <glad/glad.h>
 
 class Vertices
 {
 public:
     
-    static GLfloat* GetVertices(int& VerticesAmount);
+    static std::vector<GLfloat> GetVertices();
     
 };
 #endif

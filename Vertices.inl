@@ -1,7 +1,7 @@
 #ifndef VERTICES_INL_H
 #define VERTICES_INL_H
 
-GLfloat vertices[] =
+std::vector<GLfloat> vertices =
 {
     // Front Face
     -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Bottom-left
