@@ -37,7 +37,14 @@ GLuint indices[] =
     20, 23, 22,
 };
 
+GLuint indices_side[] =
+{
+    0, 1, 2,
+    0, 3, 2
+};
+
 GLfloat Vertices[192];
+GLfloat VerticesSide[32];
 
 enum BlockType
 {
@@ -54,18 +61,34 @@ struct BlockData
 
 int main()
 {
-    const int width = 2560;
-    const int height = 1440;
+    const int width = 500;
+    const int height = 500;
 
     std::vector<BlockData> WorldData;
 
-    int VerticesAmount;
-    GLfloat* VerticesRef = Vertices::GetVertices(VerticesAmount);
+    // -------------------------------------------------------------
 
-    for (int i = 0; i < VerticesAmount; i++)
+    GLfloat* VerticesRef = Vertices::GetVertices();
+
+    for (int i = 0; i < Vertices::VerticesAmount; i++)
     {
         Vertices[i] = *(VerticesRef + i);
     }
+
+    free(VerticesRef);
+
+    // -------------------------------------------------------------
+    
+    GLfloat* VerticesSideRef = Vertices::GetVerticesBySide(front_face);
+
+    for (int i = 0; i < 32; i++)
+    {
+        VerticesSide[i] = *(VerticesSideRef + i);
+    }
+
+    free(VerticesSideRef);
+
+    // -------------------------------------------------------------
 
     // Constants for the grid size and cube size
     const float CUBE_SIZE = 1.f;
@@ -125,7 +148,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "Window", glfwGetPrimaryMonitor(), nullptr);
+    GLFWwindow* window = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
     if (!window)
     {
         std::cout << "Failed to create window \n";
@@ -141,11 +164,14 @@ int main()
     VAO vao1;
     vao1.Bind();
 
-    VBO vbo1(Vertices, sizeof Vertices);
-    EBO ebo1(indices, sizeof indices);
+    VBO vbo1(VerticesSide, sizeof VerticesSide);
+    EBO ebo1(indices_side, sizeof indices_side);
 
+    // vertex position
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
+    // color
     vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    // texture coordinates
     vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
     vao1.Unbind();
@@ -155,11 +181,14 @@ int main()
     Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     grass_top.TexUnit(shader_program, "tex0", 0);
 
-    Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    water.TexUnit(shader_program, "tex0", 0);
+    Texture grass_side("block.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
+    grass_side.TexUnit(shader_program, "tex1", 1);
 
-    Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    sand.TexUnit(shader_program, "tex0", 0);
+    Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE2, GL_RGB, GL_UNSIGNED_BYTE);
+    water.TexUnit(shader_program, "tex0", 2);
+
+    Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE3, GL_RGB, GL_UNSIGNED_BYTE);
+    sand.TexUnit(shader_program, "tex0", 3);
     
     Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
@@ -190,10 +219,8 @@ int main()
                     water.Bind();
                     break;
             }
-
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(glm::mat4(1.0f),
-                                   block.Position);
+            model = glm::translate(glm::mat4(1.0f), block.Position);
 
             camera.Matrix(80.0f, 0.1f, 300.0f, shader_program, "camMatrix", model);
             glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
