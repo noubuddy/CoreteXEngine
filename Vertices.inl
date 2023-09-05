@@ -1,7 +1,8 @@
 #ifndef VERTICES_INL_H
 #define VERTICES_INL_H
+#include <vector>
 
-GLfloat vertices[6][32] =
+std::vector<std::vector<GLfloat>> vertices
 {
     {
         // Front Face

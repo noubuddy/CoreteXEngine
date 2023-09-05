@@ -1,6 +1,7 @@
 #ifndef VERTICES_CLASS_H
 #define VERTICES_CLASS_H
 
+#include <vector>
 #include <glad/glad.h>
 
 enum CubeSide 
@@ -17,10 +18,13 @@ class Vertices
 {
 public:
     
-    static GLfloat* GetVertices();
+    static std::vector<GLfloat> GetVertices();
 
-    static GLfloat* GetVerticesBySide(CubeSide Side);
+    static std::vector<GLfloat> GetVerticesBySide(CubeSide Side);
     
-    static const int VerticesAmount = 192;
+    static const int VerticesAmountFull = 192;
+
+    static const int VerticesAmountSide = 32;
+    
 };
 #endif

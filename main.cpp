@@ -68,26 +68,12 @@ int main()
 
     // -------------------------------------------------------------
 
-    GLfloat* VerticesRef = Vertices::GetVertices();
-
-    for (int i = 0; i < Vertices::VerticesAmount; i++)
-    {
-        Vertices[i] = *(VerticesRef + i);
-    }
-
-    free(VerticesRef);
+    std::vector<GLfloat> VerticesRef = Vertices::GetVertices();
 
     // -------------------------------------------------------------
     
-    GLfloat* VerticesSideRef = Vertices::GetVerticesBySide(front_face);
-
-    for (int i = 0; i < 32; i++)
-    {
-        VerticesSide[i] = *(VerticesSideRef + i);
-    }
-
-    free(VerticesSideRef);
-
+    std::vector<GLfloat> VerticesSideRef = Vertices::GetVerticesBySide(front_face);
+    
     // -------------------------------------------------------------
 
     // Constants for the grid size and cube size

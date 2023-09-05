@@ -1,13 +1,10 @@
 #include "Vertices.h"
 #include "Vertices.inl"
 
-#include <cstdlib>
-#include <cstring>
-
-GLfloat* Vertices::GetVertices()
+std::vector<GLfloat> Vertices::GetVertices()
 {
-    GLfloat* FinalVertices = (GLfloat*) malloc(sizeof(GLfloat) * 192);
-
+    std::vector<GLfloat> FinalVertices;
+    
     unsigned int Iterator = 0;
     
     for (int i = 0; i < 6; ++i)
@@ -22,14 +19,15 @@ GLfloat* Vertices::GetVertices()
     return FinalVertices;
 }
 
-GLfloat* Vertices::GetVerticesBySide(CubeSide Side)
+std::vector<GLfloat> Vertices::GetVerticesBySide(CubeSide Side)
 {
-    GLfloat* FinalVertices = (GLfloat*) malloc(sizeof(GLfloat) * 32);
-
+    std::vector<GLfloat> FinalVertices;
+    // FinalVertices.reserve(42);
+    
     for (int i = 0; i < 32; ++i)
     {
         FinalVertices[i] = vertices[Side][i];
     }
-
+    
     return FinalVertices;
 }
