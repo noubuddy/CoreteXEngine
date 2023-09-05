@@ -43,9 +43,6 @@ GLuint indices_side[] =
     0, 3, 2
 };
 
-GLfloat Vertices[192];
-GLfloat VerticesSide[32];
-
 enum BlockType
 {
     GRASS,
@@ -61,21 +58,13 @@ struct BlockData
 
 int main()
 {
-    const int width = 500;
-    const int height = 500;
+    const int width = 1920;
+    const int height = 1080;
 
     std::vector<BlockData> WorldData;
-
-    // -------------------------------------------------------------
-
     std::vector<GLfloat> VerticesRef = Vertices::GetVertices();
-
-    // -------------------------------------------------------------
-    
     std::vector<GLfloat> VerticesSideRef = Vertices::GetVerticesBySide(front_face);
     
-    // -------------------------------------------------------------
-
     // Constants for the grid size and cube size
     const float CUBE_SIZE = 1.f;
     const float THRESHOLD = 0.4f;
@@ -125,7 +114,7 @@ int main()
                 blockData.Type = WATER;
             }
 
-            WorldData.emplace_back(blockData);
+            WorldData.push_back(blockData);
         }
     }
 
@@ -150,8 +139,8 @@ int main()
     VAO vao1;
     vao1.Bind();
 
-    VBO vbo1(VerticesSide, sizeof VerticesSide);
-    EBO ebo1(indices_side, sizeof indices_side);
+    VBO vbo1(VerticesRef);
+    EBO ebo1(indices, sizeof indices);
 
     // vertex position
     vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
