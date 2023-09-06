@@ -7,41 +7,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Indices.h"
 #include "PerlinNoise.h"
+#include "Renderer.h"
 #include "Vertices.h"
-
-GLuint indices[] =
-{
-    // Front Face
-    0, 1, 2,
-    0, 3, 2,
-    // Back Face
-    4, 5, 6,
-    4, 7, 6,
-    // Top face
-    8, 9, 10,
-    8, 11, 10,
-    // Bottom Face
-    12, 13, 14,
-    12, 15, 14,
-    // Right Face
-    16, 17, 18,
-    16, 19, 18,
-    // Left Face
-    20, 21, 22,
-    20, 23, 22,
-};
-
-GLuint indices_side[] =
-{
-    0, 1, 2,
-    0, 3, 2
-};
 
 enum BlockType
 {
@@ -58,12 +29,21 @@ struct BlockData
 
 int main()
 {
-    const int width = 1920;
-    const int height = 1080;
+    const int width = 700;
+    const int height = 700;
 
     std::vector<BlockData> WorldData;
+    
     std::vector<GLfloat> VerticesRef = Vertices::GetVertices();
-    std::vector<GLfloat> VerticesSideRef = Vertices::GetVerticesBySide(front_face);
+
+    std::vector<GLfloat> VerticesFront = Vertices::GetVerticesBySide(front_face);
+    std::vector<GLfloat> VerticesBack = Vertices::GetVerticesBySide(back_face);
+    std::vector<GLfloat> VerticesTop = Vertices::GetVerticesBySide(top_face);
+    std::vector<GLfloat> VerticesBottom = Vertices::GetVerticesBySide(bottom_face);
+    std::vector<GLfloat> VerticesRight = Vertices::GetVerticesBySide(right_face);
+    std::vector<GLfloat> VerticesLeft = Vertices::GetVerticesBySide(left_face);
+
+    std::vector<GLuint> Indices = Indices::GetIndicesOfSide();
     
     // Constants for the grid size and cube size
     const float CUBE_SIZE = 1.f;
@@ -135,24 +115,7 @@ int main()
     glViewport(0, 0, width, height);
 
     Shader shader_program("default.vert", "default.frag");
-
-    VAO vao1;
-    vao1.Bind();
-
-    VBO vbo1(VerticesRef);
-    EBO ebo1(indices, sizeof indices);
-
-    // vertex position
-    vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
-    // color
-    vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    // texture coordinates
-    vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-    vao1.Unbind();
-    vbo1.Unbind();
-    ebo1.Unbind();
-
+    
     Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     grass_top.TexUnit(shader_program, "tex0", 0);
 
@@ -164,6 +127,15 @@ int main()
 
     Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE3, GL_RGB, GL_UNSIGNED_BYTE);
     sand.TexUnit(shader_program, "tex0", 3);
+
+    Renderer renderer;
+
+    renderer.PreRender(VerticesFront, Indices, grass_side);
+    renderer.PreRender(VerticesBack, Indices, grass_side);
+    renderer.PreRender(VerticesTop, Indices, grass_top);
+    renderer.PreRender(VerticesBottom, Indices, grass_top);
+    renderer.PreRender(VerticesRight, Indices, grass_side);
+    renderer.PreRender(VerticesLeft, Indices, grass_side);
     
     Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
@@ -178,40 +150,40 @@ int main()
 
         camera.speed = 0.6f;
         camera.Inputs(window);
-        vao1.Bind();
 
         for (auto block : WorldData)
         {
-            switch (block.Type)
-            {
-                case GRASS:
-                    grass_top.Bind();
-                    break;
-                case SAND:
-                    sand.Bind();
-                    break;
-                case WATER:
-                    water.Bind();
-                    break;
-            }
+            // switch (block.Type)
+            // {
+            //     case GRASS:
+            //         grass_top.Bind();
+            //         break;
+            //     case SAND:
+            //         sand.Bind();
+            //         break;
+            //     case WATER:
+            //         water.Bind();
+            //         break;
+            // }
+            
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(glm::mat4(1.0f), block.Position);
 
             camera.Matrix(80.0f, 0.1f, 300.0f, shader_program, "camMatrix", model);
-            glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
+
+            renderer.Render();
         }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    
+    // vao1.Delete();
+    // vbo1.Delete();
+    // ebo1.Delete();
 
-
-    vao1.Delete();
-    vbo1.Delete();
-    ebo1.Delete();
-
-    grass_top.Delete();
-    water.Delete();
+    // grass_top.Delete();
+    // water.Delete();
 
     shader_program.Delete();
     glfwDestroyWindow(window);

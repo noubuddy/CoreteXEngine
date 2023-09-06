@@ -113,6 +113,11 @@ set(no_group_source_files
     "Vertices.h"
     "Vertices.cpp"
     "Vertices.inl"
+    "Indices.h"
+    "Indices.cpp"
+    "Indices.inl"
+    "Renderer.h"
+    "Renderer.cpp"
     "default.vert"
     "default.frag"
 )

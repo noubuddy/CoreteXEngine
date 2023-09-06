@@ -5,7 +5,7 @@
 #include <ctime>
 #include <iostream>
 
-#define GRID_SIZE 200
+#define GRID_SIZE 64
 #define M_PI 3.14159265358979323846
 
 class PerlinNoise
