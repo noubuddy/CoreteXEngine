@@ -4,6 +4,8 @@ set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 
 project(LearnOpenGL C CXX)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 ################################################################################
 # Set target arch type if empty. Visual studio solution generator provides it.
 ################################################################################
@@ -113,6 +115,11 @@ set(no_group_source_files
     "Vertices.h"
     "Vertices.cpp"
     "Vertices.inl"
+    "Indices.h"
+    "Indices.cpp"
+    "Indices.inl"
+    "Renderer.h"
+    "Renderer.cpp"
     "default.vert"
     "default.frag"
 )

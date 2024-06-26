@@ -7,37 +7,13 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Indices.h"
 #include "PerlinNoise.h"
+#include "Renderer.h"
+#include "TextureArray.h"
 #include "Vertices.h"
-
-GLuint indices[] =
-{
-    // Front Face
-    0, 1, 2,
-    0, 3, 2,
-    // Back Face
-    4, 5, 6,
-    4, 7, 6,
-    // Top face
-    8, 9, 10,
-    8, 11, 10,
-    // Bottom Face
-    12, 13, 14,
-    12, 15, 14,
-    // Right Face
-    16, 17, 18,
-    16, 19, 18,
-    // Left Face
-    20, 21, 22,
-    20, 23, 22,
-};
-
-GLfloat Vertices[192];
 
 enum BlockType
 {
@@ -54,12 +30,21 @@ struct BlockData
 
 int main()
 {
-    const int width = 2560;
-    const int height = 1440;
+    const int width = 1920;
+    const int height = 1080;
 
     std::vector<BlockData> WorldData;
-    
-    std::vector<GLfloat> vertices = Vertices::GetVertices();
+
+    // std::vector<GLfloat> VerticesRef = Vertices::GetVertices();
+
+    std::vector<GLfloat> VerticesFront = Vertices::GetVerticesBySide(front_face);
+    std::vector<GLfloat> VerticesBack = Vertices::GetVerticesBySide(back_face);
+    std::vector<GLfloat> VerticesTop = Vertices::GetVerticesBySide(top_face);
+    std::vector<GLfloat> VerticesBottom = Vertices::GetVerticesBySide(bottom_face);
+    std::vector<GLfloat> VerticesRight = Vertices::GetVerticesBySide(right_face);
+    std::vector<GLfloat> VerticesLeft = Vertices::GetVerticesBySide(left_face);
+
+    std::vector<GLuint> Indices = Indices::GetIndicesOfSide();
 
     // Constants for the grid size and cube size
     const float CUBE_SIZE = 1.f;
@@ -90,7 +75,7 @@ int main()
         for (int x = 0; x < GRID_SIZE; x++)
         {
             float noiseValue = noiseValues[y][x];
-            
+
             // get first digit after the dot
             float afterDotValue = static_cast<int>(std::floor(std::fabs(noiseValue) * 10)) % 10;
 
@@ -110,7 +95,7 @@ int main()
                 blockData.Type = WATER;
             }
 
-            WorldData.emplace_back(blockData);
+            WorldData.push_back(blockData);
         }
     }
 
@@ -132,78 +117,110 @@ int main()
 
     Shader shader_program("default.vert", "default.frag");
 
-    VAO vao1;
-    vao1.Bind();
+    // Texture grass_top_texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    // grass_top_texture.TexUnit(shader_program, "tex0", 0);
+    //
+    // Texture grass_side_texture("block.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
+    // grass_side_texture.TexUnit(shader_program, "tex1", 1);
+    //
+    // Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE2, GL_RGB, GL_UNSIGNED_BYTE);
+    // water.TexUnit(shader_program, "tex0", 2);
+    //
+    // Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE3, GL_RGB, GL_UNSIGNED_BYTE);
+    // sand.TexUnit(shader_program, "tex0", 3);
 
-    VBO vbo1(vertices);
-    EBO ebo1(indices, sizeof indices);
+    std::vector<std::string> image_paths =
+    {
+        "block.jpg", "block.jpg", "block.jpg",
+        "block.jpg", "block-top.jpg", "block.jpg"
+    };
+    TextureArray texture_array(image_paths);
 
-    vao1.LinkAttrib(vbo1, 0, 3, GL_FLOAT, 8 * sizeof(float), nullptr);
-    vao1.LinkAttrib(vbo1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    vao1.LinkAttrib(vbo1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D_ARRAY, texture_array.id);
 
-    vao1.Unbind();
-    vbo1.Unbind();
-    ebo1.Unbind();
+    glUseProgram(shader_program.id);
+    glUniform1i(glGetUniformLocation(shader_program.id, "texArray"), 0);
 
-    Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    grass_top.TexUnit(shader_program, "tex0", 0);
+    Renderer renderer;
 
-    Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    water.TexUnit(shader_program, "tex0", 0);
+    Texture grass_top_texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
 
-    Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    sand.TexUnit(shader_program, "tex0", 0);
-    
+    std::vector<GLfloat> v = Vertices::GetVertices();
+    std::vector<GLuint> i = Indices::GetIndices();
+
+    renderer.PushRenderData(v, i, grass_top_texture);
+
+    // renderer.PushRenderData(VerticesFront, Indices, grass_side_texture);
+    // renderer.PushRenderData(VerticesBack, Indices, grass_side_texture);
+    // renderer.PushRenderData(VerticesTop, Indices, grass_top_texture);
+    // renderer.PushRenderData(VerticesBottom, Indices, grass_top_texture);
+    // renderer.PushRenderData(VerticesRight, Indices, grass_side_texture);
+    // renderer.PushRenderData(VerticesLeft, Indices, grass_side_texture);
+
     Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
     shader_program.Activate();
-    
+
     glEnable(GL_DEPTH_TEST);
+
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
 
     while (!glfwWindowShouldClose(window))
     {
+        // Measure speed
+        double currentTime = glfwGetTime();
+        nbFrames++;
+        if (currentTime - lastTime >= 1.0)
+        {
+            // If last prinf() was more than 1 sec ago
+            // printf and reset timer
+            // printf("%f ms/frame, %i FPS\n", 1000.0 / double(nbFrames), nbFrames);
+            std::cout << 1000.0 / double(nbFrames) << " ms/frame, " << nbFrames << " FPS\n";
+            nbFrames = 0;
+            lastTime += 1.0;
+        }
+
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         camera.speed = 0.6f;
         camera.Inputs(window);
-        vao1.Bind();
 
         for (auto block : WorldData)
         {
-            switch (block.Type)
-            {
-                case GRASS:
-                    grass_top.Bind();
-                    break;
-                case SAND:
-                    sand.Bind();
-                    break;
-                case WATER:
-                    water.Bind();
-                    break;
-            }
+            // switch (block.Type)
+            // {
+            //     case GRASS:
+            //         grass_top.Bind();
+            //         break;
+            //     case SAND:
+            //         sand.Bind();
+            //         break;
+            //     case WATER:
+            //         water.Bind();
+            //         break;
+            // }
 
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(glm::mat4(1.0f),
-                                   block.Position);
+            model = glm::translate(glm::mat4(1.0f), block.Position);
 
             camera.Matrix(80.0f, 0.1f, 300.0f, shader_program, "camMatrix", model);
-            glDrawElements(GL_TRIANGLES, sizeof indices / sizeof(int), GL_UNSIGNED_INT, nullptr);
+
+            renderer.Render();
         }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+    // vao1.Delete();
+    // vbo1.Delete();
+    // ebo1.Delete();
 
-    vao1.Delete();
-    vbo1.Delete();
-    ebo1.Delete();
-
-    grass_top.Delete();
-    water.Delete();
+    // grass_top.Delete();
+    // water.Delete();
 
     shader_program.Delete();
     glfwDestroyWindow(window);
