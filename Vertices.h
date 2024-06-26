@@ -25,6 +25,12 @@ public:
     static const int VerticesAmountFull = 192;
 
     static const int VerticesAmountSide = 32;
+
+private:
+
+    static int GetFacesAmount();
+
+    static int GetVerticesAmount(CubeSide Side);
     
 };
 #endif

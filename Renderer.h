@@ -25,7 +25,7 @@ public:
     
     void Render();
     
-    void PreRender(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, Texture& texture);
+    void PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, Texture& texture);
 
 private:
 

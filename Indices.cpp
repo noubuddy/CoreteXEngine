@@ -7,7 +7,7 @@ std::vector<GLuint> Indices::GetIndices()
     
     for (int i = 0; i < 6; ++i)
     {
-        for (int j = 0; j < 32; ++j)
+        for (int j = 0; j < 6; ++j)
         {
             FinalIndices.push_back(indices[i][j]);
         }

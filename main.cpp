@@ -12,6 +12,7 @@
 #include "Indices.h"
 #include "PerlinNoise.h"
 #include "Renderer.h"
+#include "TextureArray.h"
 #include "Vertices.h"
 
 enum BlockType
@@ -29,12 +30,12 @@ struct BlockData
 
 int main()
 {
-    const int width = 700;
-    const int height = 700;
+    const int width = 1920;
+    const int height = 1080;
 
     std::vector<BlockData> WorldData;
-    
-    std::vector<GLfloat> VerticesRef = Vertices::GetVertices();
+
+    // std::vector<GLfloat> VerticesRef = Vertices::GetVertices();
 
     std::vector<GLfloat> VerticesFront = Vertices::GetVerticesBySide(front_face);
     std::vector<GLfloat> VerticesBack = Vertices::GetVerticesBySide(back_face);
@@ -44,7 +45,7 @@ int main()
     std::vector<GLfloat> VerticesLeft = Vertices::GetVerticesBySide(left_face);
 
     std::vector<GLuint> Indices = Indices::GetIndicesOfSide();
-    
+
     // Constants for the grid size and cube size
     const float CUBE_SIZE = 1.f;
     const float THRESHOLD = 0.4f;
@@ -74,7 +75,7 @@ int main()
         for (int x = 0; x < GRID_SIZE; x++)
         {
             float noiseValue = noiseValues[y][x];
-            
+
             // get first digit after the dot
             float afterDotValue = static_cast<int>(std::floor(std::fabs(noiseValue) * 10)) % 10;
 
@@ -115,36 +116,72 @@ int main()
     glViewport(0, 0, width, height);
 
     Shader shader_program("default.vert", "default.frag");
-    
-    Texture grass_top("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    grass_top.TexUnit(shader_program, "tex0", 0);
 
-    Texture grass_side("block.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
-    grass_side.TexUnit(shader_program, "tex1", 1);
+    // Texture grass_top_texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    // grass_top_texture.TexUnit(shader_program, "tex0", 0);
+    //
+    // Texture grass_side_texture("block.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
+    // grass_side_texture.TexUnit(shader_program, "tex1", 1);
+    //
+    // Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE2, GL_RGB, GL_UNSIGNED_BYTE);
+    // water.TexUnit(shader_program, "tex0", 2);
+    //
+    // Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE3, GL_RGB, GL_UNSIGNED_BYTE);
+    // sand.TexUnit(shader_program, "tex0", 3);
 
-    Texture water("water.jpg", GL_TEXTURE_2D, GL_TEXTURE2, GL_RGB, GL_UNSIGNED_BYTE);
-    water.TexUnit(shader_program, "tex0", 2);
+    std::vector<std::string> image_paths =
+    {
+        "block.jpg", "block.jpg", "block.jpg",
+        "block.jpg", "block-top.jpg", "block.jpg"
+    };
+    TextureArray texture_array(image_paths);
 
-    Texture sand("sand2.jpg", GL_TEXTURE_2D, GL_TEXTURE3, GL_RGB, GL_UNSIGNED_BYTE);
-    sand.TexUnit(shader_program, "tex0", 3);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D_ARRAY, texture_array.id);
+
+    glUseProgram(shader_program.id);
+    glUniform1i(glGetUniformLocation(shader_program.id, "texArray"), 0);
 
     Renderer renderer;
 
-    renderer.PreRender(VerticesFront, Indices, grass_side);
-    renderer.PreRender(VerticesBack, Indices, grass_side);
-    renderer.PreRender(VerticesTop, Indices, grass_top);
-    renderer.PreRender(VerticesBottom, Indices, grass_top);
-    renderer.PreRender(VerticesRight, Indices, grass_side);
-    renderer.PreRender(VerticesLeft, Indices, grass_side);
-    
+    Texture grass_top_texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
+
+    std::vector<GLfloat> v = Vertices::GetVertices();
+    std::vector<GLuint> i = Indices::GetIndices();
+
+    renderer.PushRenderData(v, i, grass_top_texture);
+
+    // renderer.PushRenderData(VerticesFront, Indices, grass_side_texture);
+    // renderer.PushRenderData(VerticesBack, Indices, grass_side_texture);
+    // renderer.PushRenderData(VerticesTop, Indices, grass_top_texture);
+    // renderer.PushRenderData(VerticesBottom, Indices, grass_top_texture);
+    // renderer.PushRenderData(VerticesRight, Indices, grass_side_texture);
+    // renderer.PushRenderData(VerticesLeft, Indices, grass_side_texture);
+
     Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
     shader_program.Activate();
-    
+
     glEnable(GL_DEPTH_TEST);
+
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
 
     while (!glfwWindowShouldClose(window))
     {
+        // Measure speed
+        double currentTime = glfwGetTime();
+        nbFrames++;
+        if (currentTime - lastTime >= 1.0)
+        {
+            // If last prinf() was more than 1 sec ago
+            // printf and reset timer
+            // printf("%f ms/frame, %i FPS\n", 1000.0 / double(nbFrames), nbFrames);
+            std::cout << 1000.0 / double(nbFrames) << " ms/frame, " << nbFrames << " FPS\n";
+            nbFrames = 0;
+            lastTime += 1.0;
+        }
+
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -165,7 +202,7 @@ int main()
             //         water.Bind();
             //         break;
             // }
-            
+
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(glm::mat4(1.0f), block.Position);
 
@@ -177,7 +214,7 @@ int main()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    
+
     // vao1.Delete();
     // vbo1.Delete();
     // ebo1.Delete();
