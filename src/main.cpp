@@ -44,8 +44,8 @@ int main()
 
     std::vector<std::string> image_paths =
     {
-        "block.jpg", "block.jpg", "block.jpg",
-        "block.jpg", "block-top.jpg", "block.jpg"
+        "resources/block.jpg", "resources/block.jpg", "resources/block.jpg",
+        "resources/block.jpg", "resources/block-top.jpg", "resources/block.jpg"
     };
     TextureArray texture_array(image_paths);
 
