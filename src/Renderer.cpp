@@ -5,12 +5,20 @@ void Renderer::Render()
     for (auto RenderData : mRenderData)
     {
         RenderData.vao.Bind();
-        // RenderData.texture->Bind();
-        
+
+        if (RenderData.texture)
+        {
+            // RenderData.texture->Bind();
+        }
+            
         glDrawElements(GL_TRIANGLES, (GLsizei) RenderData.indices->size(), GL_UNSIGNED_INT, nullptr);
         
         RenderData.vao.Unbind();
-        // RenderData.texture->Unbind();
+
+        if (RenderData.texture)
+        {
+            // RenderData.texture->Unbind();
+        }
     }
 }
 

@@ -96,50 +96,21 @@ set(PROJECT_NAME LearnOpenGL)
 ################################################################################
 # Source groups
 ################################################################################
-set(no_group_source_files
-    "Camera.cpp"
-    "Camera.h"
-    "EBO.cpp"
-    "EBO.h"
-    "Shader.cpp"
-    "Shader.h"
-    "stb.cpp"
-    "Texture.cpp"
-    "Texture.h"
-    "VAO.cpp"
-    "VAO.h"
-    "VBO.cpp"
-    "VBO.h"
-    "PerlinNoise.cpp"
-    "PerlinNoise.h"
-    "Vertices.h"
-    "Vertices.cpp"
-    "Vertices.inl"
-    "Indices.h"
-    "Indices.cpp"
-    "Indices.inl"
-    "Renderer.h"
-    "Renderer.cpp"
-    "default.vert"
-    "default.frag"
+file(GLOB_RECURSE no_group_source_files
+    "src/*.cpp"
+    "src/*.h"
+    "src/*.inl"
+    "src/*.vert"
+    "src/*.frag"
+    "src/*.c"
 )
+
 source_group("" FILES ${no_group_source_files})
-
-set(Source_Files
-    "glad.c"
-    "main.cpp"
-)
-source_group("Source Files" FILES ${Source_Files})
-
-set(ALL_FILES
-    ${no_group_source_files}
-    ${Source_Files}
-)
 
 ################################################################################
 # Target
 ################################################################################
-add_executable(${PROJECT_NAME} ${ALL_FILES})
+add_executable(${PROJECT_NAME} ${no_group_source_files})
 
 use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 set(ROOT_NAMESPACE LearnOpenGL)
@@ -156,6 +127,7 @@ elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x86")
         INTERPROCEDURAL_OPTIMIZATION_RELEASE "TRUE"
     )
 endif()
+
 ################################################################################
 # Compile definitions
 ################################################################################
@@ -185,22 +157,22 @@ elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x86")
         "_UNICODE"
     )
 endif()
-set_source_files_properties(EBO.cpp PROPERTIES
+set_source_files_properties(src/EBO.cpp PROPERTIES
     COMPILE_DEFINITIONS "_DEBUG;_CONSOLE;_UNICODE;UNICODE;"
 )
-set_source_files_properties(glad.c PROPERTIES
+set_source_files_properties(src/glad.c PROPERTIES
     COMPILE_DEFINITIONS "_DEBUG;_CONSOLE;_UNICODE;UNICODE;"
 )
-set_source_files_properties(main.cpp PROPERTIES
+set_source_files_properties(src/main.cpp PROPERTIES
     COMPILE_DEFINITIONS "_DEBUG;_CONSOLE;_UNICODE;UNICODE;"
 )
-set_source_files_properties(Shader.cpp PROPERTIES
+set_source_files_properties(src/Shader.cpp PROPERTIES
     COMPILE_DEFINITIONS "_DEBUG;_CONSOLE;_UNICODE;UNICODE;"
 )
-set_source_files_properties(VAO.cpp PROPERTIES
+set_source_files_properties(src/VAO.cpp PROPERTIES
     COMPILE_DEFINITIONS "_DEBUG;_CONSOLE;_UNICODE;UNICODE;"
 )
-set_source_files_properties(VBO.cpp PROPERTIES
+set_source_files_properties(src/VBO.cpp PROPERTIES
     COMPILE_DEFINITIONS "_DEBUG;_CONSOLE;_UNICODE;UNICODE;"
 )
 
@@ -273,4 +245,3 @@ elseif("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x86")
     )
 endif()
 target_link_libraries(${PROJECT_NAME} PRIVATE "${ADDITIONAL_LIBRARY_DEPENDENCIES}")
-

@@ -1,48 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\EBO.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Shader.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\stb.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Texture.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\VAO.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\PerlinNoise.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Indices.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\Renderer.cpp" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Camera.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\EBO.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Indices.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\PerlinNoise.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Renderer.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Shader.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Texture.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\TextureArray.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\VAO.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\VBO.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Vertices.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\WorldManager.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\glad.c" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\main.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\stb.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Camera.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\EBO.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Shader.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Texture.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VAO.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\VBO.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\PerlinNoise.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Vertices.inl" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Indices.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Indices.inl" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\Renderer.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Camera.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\EBO.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Indices.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Indices.inl" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\PerlinNoise.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Renderer.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Shader.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Texture.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\TextureArray.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\VAO.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\VBO.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Vertices.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Vertices.inl" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\anton\source\repos\LearnOpenGL\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\anton\source\repos\LearnOpenGL\default.vert" />
-    <None Include="C:\Users\anton\source\repos\LearnOpenGL\default.frag" />
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\src\default.frag" />
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\src\default.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{0169F372-2D50-35F4-90DE-D7D520B67ECA}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>
