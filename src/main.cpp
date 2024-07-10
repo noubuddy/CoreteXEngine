@@ -6,14 +6,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Shader.h"
-#include "Texture.h"
-#include "Camera.h"
-#include "Indices.h"
-#include "Renderer.h"
-#include "TextureArray.h"
-#include "Vertices.h"
-#include "WorldManager.h"
+#include "Core/Graphics/Shader/Shader.h"
+#include "Core/Graphics/Texture/Texture.h"
+#include "Core/Graphics/Camera/Camera.h"
+#include "Core/Graphics/Render/Helpers/Indices.h"
+#include "Core/Graphics/Render/Renderer.h"
+#include "Core/Graphics/Texture/TextureArray.h"
+#include "Core/Graphics/Render/Helpers/Vertices.h"
+#include "Game/World/WorldManager.h"
 
 int main()
 {
@@ -40,7 +40,7 @@ int main()
     gladLoadGL();
     glViewport(0, 0, width, height);
 
-    Shader shader_program("src/default.vert", "src/default.frag");
+    Shader shader_program("src/Core/Graphics/Shader/Shaders/default.vert", "src/Core/Graphics/Shader/Shaders/default.frag");
 
     std::vector<std::string> image_paths =
     {

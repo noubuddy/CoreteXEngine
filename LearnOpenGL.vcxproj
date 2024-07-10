@@ -54,6 +54,9 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\anton\source\repos\LearnOpenGL\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -170,48 +173,40 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Camera.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Camera.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\EBO.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-    </ClCompile>
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\EBO.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Indices.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Indices.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Indices.inl" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\PerlinNoise.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\PerlinNoise.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Renderer.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Renderer.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Shader.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-    </ClCompile>
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Shader.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Texture.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Texture.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\TextureArray.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\TextureArray.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\VAO.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-    </ClCompile>
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\VAO.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\VBO.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
-    </ClCompile>
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\VBO.h" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Vertices.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Vertices.h" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Vertices.inl" />
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\WorldManager.cpp" />
-    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\WorldManager.h" />
-    <None Include="C:\Users\anton\source\repos\LearnOpenGL\src\default.frag">
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\EBO.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\EBO.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\VAO.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\VAO.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\VBO.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\VBO.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Camera\Camera.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Camera\Camera.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Helpers\Indices.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Helpers\Indices.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Helpers\Indices.inl" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Helpers\Vertices.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Helpers\Vertices.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Helpers\Vertices.inl" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Renderer.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Render\Renderer.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Shader\Shader.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Shader\Shader.h" />
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Shader\Shaders\default.frag">
     </None>
-    <None Include="C:\Users\anton\source\repos\LearnOpenGL\src\default.vert">
+    <None Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Shader\Shaders\default.vert">
     </None>
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Texture\Texture.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Texture\Texture.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Texture\TextureArray.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Texture\TextureArray.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Utils\PerlinNoise.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Utils\PerlinNoise.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Utils\stb.cpp" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Game\Block\Block.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Game\Block\Block.h" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Game\Block\BlockTypes.h" />
+    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Game\World\WorldManager.cpp" />
+    <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Game\World\WorldManager.h" />
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\glad.c">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
@@ -220,7 +215,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\stb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\anton\source\repos\LearnOpenGL\ZERO_CHECK.vcxproj">
@@ -229,9 +223,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="resources\" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
