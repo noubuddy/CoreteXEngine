@@ -69,13 +69,6 @@ float PerlinNoise::lerp(float t, float a, float b) {
     return a + t * (b - a);
 }
 
-// float PerlinNoise::grad(int hash, float x, float y) {
-//     int h = hash & 3;
-//     float u = h == 0 || h == 2 ? x : y;
-//     float v = h == 0 || h == 1 ? x : y;
-//     return (h & 1 ? -u : u) + (h & 2 ? -v : v);
-// }
-
 float PerlinNoise::grad(int hash, float x, float y, float z) {
     int h = hash & 15;
     float u = h < 8 ? x : y;

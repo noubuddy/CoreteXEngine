@@ -6,8 +6,10 @@
 
 class EBO
 {
-public:
+private:
     GLuint id;
+
+public:
     EBO(std::vector<GLuint> indices);
 
     void Bind();

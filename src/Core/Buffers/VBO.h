@@ -6,8 +6,10 @@
 
 class VBO
 {
-public:
+private:
     GLuint id;
+
+public:
     VBO(std::vector<GLfloat> vertices);
 
     void Bind();

@@ -88,10 +88,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Sub-projects
 ################################################################################
 
-# Устанавливаем корневую директорию для поиска файлов
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
-# Функция для рекурсивного добавления директорий
 function(add_include_directories_recursively base_dir)
     file(GLOB_RECURSE subdirs RELATIVE ${base_dir} ${base_dir}/*)
     foreach(subdir ${subdirs})
@@ -101,7 +99,6 @@ function(add_include_directories_recursively base_dir)
     endforeach()
 endfunction()
 
-# Добавляем все поддиректории из SRC_DIR в include_directories
 add_include_directories_recursively(${SRC_DIR}) 
 
 include_directories(Libraries/include)
