@@ -21,7 +21,13 @@ public:
     hash_map_item* CreateItem(K* key, V* value);
     void FreeItem(hash_map_item* item);
 
+    bool Insert(K* key, V* value);
+    V* Search(K* key);
+
 private:
+
+    int HashFunction(K* key);
+    void HandleCollision(hash_map_item* item);
 
     // array of pointers to item
     hash_map_item** m_items;

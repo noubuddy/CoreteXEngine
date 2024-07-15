@@ -175,6 +175,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Buffers\EBO.cpp" />
     <ClCompile Include="src\Core\Data\DataStructures\HashMap.cpp" />
+    <ClCompile Include="src\Core\Data\DataStructures\LinkedList.cpp" />
     <ClCompile Include="src\Core\GameObjects\ObjectBase.cpp" />
     <ClCompile Include="src\Core\GameObjects\PlayableCharacterBase.cpp" />
     <ClCompile Include="src\Core\Input\InputManager.cpp" />
@@ -196,6 +197,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Shader\Shader.cpp" />
     <ClInclude Include="C:\Users\anton\source\repos\LearnOpenGL\src\Core\Graphics\Shader\Shader.h" />
     <ClInclude Include="src\Core\Data\DataStructures\HashMap.h" />
+    <ClInclude Include="src\Core\Data\DataStructures\LinkedList.h" />
     <ClInclude Include="src\Core\GameObjects\ObjectBase.h" />
     <ClInclude Include="src\Core\GameObjects\PlayableCharacterBase.h" />
     <ClInclude Include="src\Core\Input\InputManager.h" />
