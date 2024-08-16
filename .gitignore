@@ -44,3 +44,6 @@ ZERO_CHECK.vcxproj
 ZERO_CHECK.vcxproj.filters
 cmake_install.cmake
 LearnOpenGL.dir/
+
+.cache
+.vs
