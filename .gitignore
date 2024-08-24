@@ -41,11 +41,14 @@ CMakeFiles/
 LearnOpenGL.dir/
 
 # Generated files
-ALL_BUILD.vcxproj
-ZERO_CHECK.vcxproj
 cmake_install.cmake
 CMakeCache.txt
+ALL_BUILD.vcxproj
+ZERO_CHECK.vcxproj  
 
 # Solution configurations
 *.filters
 *.users
+
+# GitHub workflows
+.github

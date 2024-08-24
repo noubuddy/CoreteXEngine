@@ -2,7 +2,7 @@
 
 set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 
-project(LearnOpenGL C CXX)
+project(CoretexNgin C CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -104,7 +104,7 @@ add_include_directories_recursively(${SRC_DIR})
 include_directories(Libraries/include)
 link_directories(Libraries/lib)
 
-set(PROJECT_NAME LearnOpenGL)
+set(PROJECT_NAME CoretexNgin)
 
 ################################################################################
 # Source groups
@@ -127,7 +127,7 @@ source_group(TREE ${SRC_DIR} FILES ${no_group_source_files})
 add_executable(${PROJECT_NAME} ${no_group_source_files})
 
 use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
-set(ROOT_NAMESPACE LearnOpenGL)
+set(ROOT_NAMESPACE CoretexNgin)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VS_GLOBAL_KEYWORD "Win32Proj"

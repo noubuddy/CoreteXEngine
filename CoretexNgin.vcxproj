@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{449B3CE4-EDE9-35EE-9145-779D6203F5FC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>CoretexNgin</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CoretexNgin</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CoretexNgin</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_DEBUG;_CONSOLE;UNICODE;_UNICODE;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_CONSOLE;UNICODE;_UNICODE;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)/Libraries/lib;$(ProjectDir)/Libraries/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(ProjectDir)/x64/Debug/CoretexNgin.lib</ImportLibrary>
+      <ProgramDataBaseFile>$(ProjectDir)/x64/Debug/CoretexNgin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_CONSOLE;UNICODE;_UNICODE;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;_CONSOLE;UNICODE;_UNICODE;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)/Libraries/lib;$(ProjectDir)/Libraries/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>$(ProjectDir)/x64/Release/CoretexNgin.lib</ImportLibrary>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ProgramDataBaseFile>$(ProjectDir)/x64/Release/CoretexNgin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="$(ProjectDir)\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule $(ProjectDir)/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\CMake\bin\cmake.exe -S$(ProjectDir) -B$(ProjectDir) --check-stamp-file $(ProjectDir)/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\CMake\share\cmake-3.25\Modules\CMakeCCompiler.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeCCompilerABI.c;C:\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeCXXCompiler.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeCXXCompilerABI.cpp;C:\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeCompilerIdDetection.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCXXCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompileFeatures.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompilerABI.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompilerId.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineRCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineSystem.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeFindBinUtils.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeParseImplicitIncludeInfo.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeParseImplicitLinkInfo.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeParseLibraryArchitecture.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeRCCompiler.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeSystem.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestCXXCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestCompilerCommon.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestRCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\ARMCC-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\ARMClang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\GNU-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\LCC-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\NVHPC-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\TI-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Tasking-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CompilerId\VS-10.vcxproj.in;C:\CMake\share\cmake-3.25\Modules\Internal\FeatureTesting.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-Determine-CXX.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;$(ProjectDir)\CMake\Default.cmake;$(ProjectDir)\CMake\DefaultCXX.cmake;$(ProjectDir)\CMake\Utils.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeCCompiler.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeCXXCompiler.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeRCCompiler.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule $(ProjectDir)/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\CMake\bin\cmake.exe -S$(ProjectDir) -B$(ProjectDir) --check-stamp-file $(ProjectDir)/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\CMake\share\cmake-3.25\Modules\CMakeCCompiler.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeCCompilerABI.c;C:\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeCXXCompiler.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeCXXCompilerABI.cpp;C:\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeCompilerIdDetection.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCXXCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompileFeatures.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompilerABI.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineCompilerId.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineRCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeDetermineSystem.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeFindBinUtils.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeParseImplicitIncludeInfo.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeParseImplicitLinkInfo.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeParseLibraryArchitecture.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeRCCompiler.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeSystem.cmake.in;C:\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestCXXCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestCompilerCommon.cmake;C:\CMake\share\cmake-3.25\Modules\CMakeTestRCCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\ADSP-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\ARMCC-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\ARMClang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\AppleClang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Borland-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Clang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Comeau-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Cray-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\GHS-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\GNU-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\HP-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IAR-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Intel-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\LCC-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\NVHPC-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\PGI-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\PathScale-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SCO-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\TI-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Tasking-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\Watcom-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XL-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\zOS-C-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;C:\CMake\share\cmake-3.25\Modules\CompilerId\VS-10.vcxproj.in;C:\CMake\share\cmake-3.25\Modules\Internal\FeatureTesting.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-Determine-CXX.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;$(ProjectDir)\CMake\Default.cmake;$(ProjectDir)\CMake\DefaultCXX.cmake;$(ProjectDir)\CMake\Utils.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeCCompiler.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeCXXCompiler.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeRCCompiler.cmake;$(ProjectDir)\CMakeFiles\3.25.1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(ProjectDir)\src\Core\Buffers\EBO.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Buffers\EBO.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Buffers\VAO.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Buffers\VAO.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Buffers\VBO.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Buffers\VBO.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Data\DataStructures\HashMap.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Data\DataStructures\HashMap.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Data\DataStructures\LinkedList.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Data\DataStructures\LinkedList.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\GameObjects\ObjectBase.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\GameObjects\ObjectBase.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\GameObjects\PlayableCharacterBase.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\GameObjects\PlayableCharacterBase.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Camera\Camera.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Camera\Camera.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Render\Helpers\Indices.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Render\Helpers\Indices.h" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Render\Helpers\Indices.inl" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Render\Helpers\Vertices.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Render\Helpers\Vertices.h" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Render\Helpers\Vertices.inl" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Render\Renderer.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Render\Renderer.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Shader\Shader.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Shader\Shader.h" />
+    <None Include="$(ProjectDir)\src\Core\Graphics\Shader\Shaders\default.frag">
+    </None>
+    <None Include="$(ProjectDir)\src\Core\Graphics\Shader\Shaders\default.vert">
+    </None>
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Texture\Texture.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Texture\Texture.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Graphics\Texture\TextureArray.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Graphics\Texture\TextureArray.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Input\InputManager.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Input\InputManager.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Utils\PerlinNoise.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Core\Utils\PerlinNoise.h" />
+    <ClCompile Include="$(ProjectDir)\src\Core\Utils\stb.cpp" />
+    <ClCompile Include="$(ProjectDir)\src\Game\Block\Block.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Game\Block\Block.h" />
+    <ClInclude Include="$(ProjectDir)\src\Game\Block\BlockTypes.h" />
+    <ClCompile Include="$(ProjectDir)\src\Game\World\WorldManager.cpp" />
+    <ClInclude Include="$(ProjectDir)\src\Game\World\WorldManager.h" />
+    <ClCompile Include="$(ProjectDir)\src\glad.c">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="$(ProjectDir)\src\main.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);_DEBUG;_CONSOLE;_UNICODE;UNICODE</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
