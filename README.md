@@ -1,2 +1,1 @@
-# LearnOpenGL
-OpenGL training project
+# CoreteXEngine
