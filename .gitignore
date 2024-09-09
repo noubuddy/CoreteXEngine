@@ -46,6 +46,8 @@ ALL_BUILD.vcxproj
 ZERO_CHECK.vcxproj  
 
 # Solution configurations
+*.sln
+*.vcxproj
 *.filters
 *.users
 
