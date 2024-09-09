@@ -37,7 +37,8 @@ x64/
 .cache
 .vs
 CMakeFiles/
-LearnOpenGL.dir/
+CoretexNgin.dir/
+bin/
 
 # Generated files
 cmake_install.cmake
