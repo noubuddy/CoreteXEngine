@@ -1,2 +1,2 @@
 @echo off
-cmake -B . -G 'Visual Studio 17 2022'
+cmake -B . -G "Visual Studio 17 2022"
