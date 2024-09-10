@@ -1,3 +1,3 @@
 @echo off
 cmake --build "."
-"./bin/Debug/CoretexNgin.exe"
+"./bin/Debug/CorteXngin.exe"
