@@ -37,7 +37,6 @@ x64/
 .cache
 .vs
 CMakeFiles/
-CoretexNgin.dir/
 bin/
 
 # Generated files
@@ -54,3 +53,5 @@ ZERO_CHECK.vcxproj
 
 # GitHub workflows
 .github
+
+*.dir
