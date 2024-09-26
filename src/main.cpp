@@ -13,6 +13,8 @@
 #include "Core/Graphics/Render/Renderer.h"
 #include "Core/Graphics/Texture/TextureArray.h"
 #include "Core/Graphics/Render/Helpers/Vertices.h"
+#include "Core/Window/Window.h"
+
 #include "Game/World/WorldManager.h"
 
 int main()
@@ -29,16 +31,13 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
-    if (!window)
+    Window* window = new Window(1920, 1080, "CoreteXngin", nullptr, nullptr);
+    if (!window->CreateWindow())
     {
-        std::cout << "Failed to create window \n";
-        glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window);
-    gladLoadGL();
-    glViewport(0, 0, width, height);
+
+    window->SetAsCurrentWindow();
 
     Shader shader_program("src/Core/Graphics/Shader/Shaders/default.vert", "src/Core/Graphics/Shader/Shaders/default.frag");
 
@@ -73,7 +72,7 @@ int main()
     double lastTime = glfwGetTime();
     int nbFrames = 0;
 
-    while (!glfwWindowShouldClose(window))
+    while (!window->WindowShouldClose())
     {
         // Measure speed
         double currentTime = glfwGetTime();
@@ -92,7 +91,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         camera.speed = 0.6f;
-        camera.Inputs(window);
+        camera.Inputs(window->GetCurrentWindow());
 
         for (BlockData block : *world_data)
         {
@@ -104,12 +103,12 @@ int main()
             renderer.Render();
         }
 
-        glfwSwapBuffers(window);
+        window->SwapBuffers();
         glfwPollEvents();
     }
 
     shader_program.Delete();
-    glfwDestroyWindow(window);
+    window->DestroyWindow();
     glfwTerminate();
 
     return 0;
