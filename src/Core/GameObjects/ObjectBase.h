@@ -1,26 +1,36 @@
 #ifndef OBJECT_BASE_CLASS_H
 #define OBJECT_BASE_CLASS_H
 #include <glm/vec3.hpp>
+#include "../Data/Structs/Transform.h"
 
 class ObjectBase
 {
-    
-private:
-    glm::vec3 m_location;
-    glm::vec3 m_rotation;
-    glm::vec3 m_scale;
 
 public:
     ObjectBase();
-    ObjectBase(glm::vec3 Location, glm::vec3 Rotation, glm::vec3 Scale);
+    ObjectBase(glm::vec3 location, glm::vec3 rotation, glm::vec3 scale);
+    ObjectBase(Transform transform);
 
-    glm::vec3 GetLocation() {return m_location;}
-    glm::vec3 GetRotation() {return m_rotation;}
-    glm::vec3 GetScale() {return m_scale;}
+    Transform GetTransform() {return m_transform;}
+    glm::vec3 GetLocation() {return m_transform.GetLocation();}
+    glm::vec3 GetRotation() {return m_transform.GetRotation();}
+    glm::vec3 GetScale() {return m_transform.GetScale();}
+    bool IsRenderable() {return m_is_renderable;}
 
-    void SetLocation(glm::vec3 NewLocation) {m_location = NewLocation;}
-    void SetRotation(glm::vec3 NewRotation) {m_rotation = NewRotation;}
-    void SetScale(glm::vec3 NewScale) {m_scale = NewScale;}
+    void SetTransform(Transform new_transform) {m_transform = new_transform;}
+    void SetLocation(glm::vec3 new_location) {m_transform.SetLocation(new_location);}
+    void SetRotation(glm::vec3 new_rotation) {m_transform.SetRotation(new_rotation);}
+    void SetScale(glm::vec3 new_scale) {m_transform.SetScale(new_scale);}
+    void SetIsRenderable(bool is_renderable) {m_is_renderable = is_renderable;}
+    
+    void Spawn();
+    
+    virtual void Update() = 0;
+
+private:
+    Transform m_transform;
+    
+    bool m_is_renderable;
 };
 
 #endif

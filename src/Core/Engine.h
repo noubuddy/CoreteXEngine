@@ -2,6 +2,10 @@
 #define ENGINE_CLASS_H
 
 #include <iostream>
+#include <vector>
+
+#include "GameObjects/ObjectBase.h"
+#include "Graphics/Render/Renderer.h"
 #include "Window/Window.h"
 
 static float delta_time;
@@ -32,6 +36,10 @@ private:
     Window* m_current_window;
     
     float CalculateDeltaTime(float& previous_time);
+
+    std::vector<ObjectBase*> m_game_objects;
+
+    Renderer* m_renderer;
 };
 
 #endif

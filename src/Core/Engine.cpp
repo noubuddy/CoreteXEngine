@@ -46,6 +46,11 @@ void Engine::InitGraphics()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    if (!m_renderer)
+    {
+        m_renderer = new Renderer();
+    }
 }
 
 void Engine::InitWindow()
@@ -66,6 +71,20 @@ void Engine::UpdateScene()
 
 void Engine::UpdateTick()
 {
+    for (ObjectBase* object : m_game_objects)
+    {
+        if (!object)
+        {
+            continue;
+        }
+
+        if (object->IsRenderable())
+        {
+            
+        }
+
+        object->Update();
+    }
 }
 
 void Engine::RenderFrame()

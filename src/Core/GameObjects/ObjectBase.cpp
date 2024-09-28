@@ -2,14 +2,31 @@
 
 ObjectBase::ObjectBase()
 {
-    m_location = glm::vec3(0.f, 0.f, 0.f);
-    m_rotation = glm::vec3(0.f, 0.f, 0.f);
-    m_scale = glm::vec3(0.f, 0.f, 0.f);
+    m_transform.SetTransform(
+        glm::vec3(0.f, 0.f, 0.f),
+        glm::vec3(0.f, 0.f, 0.f),
+        glm::vec3(1.f, 1.f, 1.f));
+    
+    SetIsRenderable(true);
 }
 
-ObjectBase::ObjectBase(glm::vec3 Location, glm::vec3 Rotation, glm::vec3 Scale)
+ObjectBase::ObjectBase(glm::vec3 location, glm::vec3 rotation, glm::vec3 scale)
 {
-    m_location = Location;
-    m_rotation = Rotation;
-    m_scale = Scale;
+    m_transform.SetTransform(
+        location,
+        rotation,
+        scale);
+
+    SetIsRenderable(true);
+}
+
+ObjectBase::ObjectBase(Transform transform)
+{
+    m_transform = transform;
+
+    SetIsRenderable(true);
+}
+
+void ObjectBase::Spawn()
+{
 }
