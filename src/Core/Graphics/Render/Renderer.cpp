@@ -2,27 +2,26 @@
 
 void Renderer::Render()
 {
+    // TODO: Rewrite renderer to operate with different types of textures (SINGLE/ARRAY)
     for (auto RenderData : mRenderData)
     {
         RenderData.vao.Bind();
-
-        if (RenderData.texture)
-        {
-            // RenderData.texture->Bind();
-        }
+        // if (RenderData.texture)
+        // {
+        //     RenderData.texture->Bind();
+        // }
             
         glDrawElements(GL_TRIANGLES, (GLsizei) RenderData.indices->size(), GL_UNSIGNED_INT, nullptr);
         
         RenderData.vao.Unbind();
-
-        if (RenderData.texture)
-        {
-            // RenderData.texture->Unbind();
-        }
+        // if (RenderData.texture)
+        // {
+        //     RenderData.texture->Unbind();
+        // }
     }
 }
 
-void Renderer::PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, Texture& texture)
+void Renderer::PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, TextureBase& texture)
 {
     VAO vao;
     vao.Bind();
@@ -44,4 +43,16 @@ void Renderer::PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint
     vao.Unbind();
     vbo.Unbind();
     ebo.Unbind();
+}
+
+void Renderer::EnableDepthTest(bool enable)
+{
+    if (enable)
+    {
+        glEnable(GL_DEPTH_TEST);
+    }
+    else
+    {
+        glDisable(GL_DEPTH_TEST);
+    }
 }

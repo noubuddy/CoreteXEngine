@@ -51,6 +51,8 @@ void Engine::InitGraphics()
     {
         m_renderer = new Renderer();
     }
+
+    m_renderer->EnableDepthTest(true);
 }
 
 void Engine::InitWindow()

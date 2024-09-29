@@ -3,6 +3,7 @@
 
 #include "../../Data/Structs/RenderData.h"
 #include "../../Buffers/EBO.h"
+#include "../Texture/TextureArray.h"
 
 class Renderer
 {
@@ -10,7 +11,9 @@ public:
     
     void Render();
     
-    void PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, Texture& texture);
+    void PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, TextureBase& texture);
+
+    void EnableDepthTest(bool enable);
 
 private:
 

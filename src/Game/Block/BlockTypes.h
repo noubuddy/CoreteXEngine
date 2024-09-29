@@ -1,7 +1,7 @@
 #ifndef BLOCK_TYPES_CLASS
 #define BLOCK_TYPES_CLASS
 
-#include "../../Core/Graphics/Texture/Texture.h"
+#include "../../Core/Graphics/Texture/TextureSingle.h"
 
 namespace BLOCK_TYPE
 {
@@ -20,7 +20,7 @@ inline void SetBlockType(BLOCK_TYPE::BlockType BlockType, Shader ShaderProgram)
     {
     case BLOCK_TYPE::GRASS:
         {
-            Texture texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+            TextureSingle texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
             texture.TexUnit(ShaderProgram, "tex0", 0);
             texture.Bind();
         }
@@ -28,7 +28,7 @@ inline void SetBlockType(BLOCK_TYPE::BlockType BlockType, Shader ShaderProgram)
 
     case BLOCK_TYPE::SAND:
         {
-            Texture texture("sand.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+            TextureSingle texture("sand.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
             texture.TexUnit(ShaderProgram, "tex0", 0);
             texture.Bind();
         }
@@ -36,7 +36,7 @@ inline void SetBlockType(BLOCK_TYPE::BlockType BlockType, Shader ShaderProgram)
 
     case BLOCK_TYPE::WATER:
         {
-            Texture texture("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+            TextureSingle texture("water.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
             texture.TexUnit(ShaderProgram, "tex0", 0);
             texture.Bind();
         }

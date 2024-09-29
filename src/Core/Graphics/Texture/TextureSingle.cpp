@@ -1,6 +1,6 @@
-﻿#include "Texture.h"
+﻿#include "TextureSingle.h"
 
-Texture::Texture(const char* image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type)
+TextureSingle::TextureSingle(const char* image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type) : TextureBase(tex_type, slot, format, pixel_type)
 {
     type = tex_type;
 
@@ -20,26 +20,4 @@ Texture::Texture(const char* image, GLenum tex_type, GLenum slot, GLenum format,
 
     stbi_image_free(bytes);
     glBindTexture(tex_type, 0);
-}
-
-void Texture::TexUnit(Shader &shader, const char* uniform, GLuint unit)
-{
-	GLuint tex_uni = glGetUniformLocation(shader.id, uniform);
-	shader.Activate();
-	glUniform1i(tex_uni, unit);
-}
-
-void Texture::Bind()
-{
-	glBindTexture(type, id);
-}
-
-void Texture::Unbind()
-{
-	glBindTexture(type, 0);
-}
-
-void Texture::Delete()
-{
-	glDeleteTextures(1, &id);
 }

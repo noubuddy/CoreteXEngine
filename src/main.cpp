@@ -7,7 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Core/Graphics/Shader/Shader.h"
-#include "Core/Graphics/Texture/Texture.h"
+#include "Core/Graphics/Texture/TextureSingle.h"
 #include "Core/Graphics/Camera/Camera.h"
 #include "Core/Graphics/Render/Helpers/Indices.h"
 #include "Core/Graphics/Render/Renderer.h"
@@ -46,22 +46,17 @@ int main()
         "resources/block.jpg", "resources/block.jpg", "resources/block.jpg",
         "resources/block.jpg", "resources/block-top.jpg", "resources/block.jpg"
     };
-    TextureArray texture_array(image_paths);
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D_ARRAY, texture_array.id);
-
-    glUseProgram(shader_program.id);
-    glUniform1i(glGetUniformLocation(shader_program.id, "texArray"), 0);
+    
+    TextureArray texture_array(image_paths, GL_TEXTURE_2D_ARRAY, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+    texture_array.TexUnit(shader_program, "texArray", 0);
+    texture_array.Bind();
 
     Renderer renderer;
-
-    Texture grass_top_texture("block-top.jpg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
-
+    
     std::vector<GLfloat> v = Vertices::GetVertices();
     std::vector<GLuint> i = Indices::GetIndices();
 
-    renderer.PushRenderData(v, i, grass_top_texture);
+    renderer.PushRenderData(v, i, texture_array);
 
     Camera camera(width, height, glm::vec3(10.0f, 100.0f, 10.0f));
 
@@ -90,7 +85,6 @@ int main()
         glClearColor(0.29f, 0.66f, 0.87f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        camera.speed = 0.6f;
         camera.Inputs(window->GetCurrentWindow());
 
         for (BlockData block : *world_data)

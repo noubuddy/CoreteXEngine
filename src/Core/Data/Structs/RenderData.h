@@ -2,11 +2,11 @@
 #define RENDER_DATA_CLASS_H
 
 #include "../../Buffers/VAO.h"
-#include "../../Graphics/Texture/Texture.h"
+#include "../../Graphics/Texture/TextureBase.h"
 
 struct RenderData
 {
-    RenderData(VAO vao, Texture& texture, std::vector<GLuint>& indices)
+    RenderData(VAO vao, TextureBase& texture, std::vector<GLuint>& indices)
     {
         this->vao = vao;
         this->texture = &texture;
@@ -14,7 +14,7 @@ struct RenderData
     }
     
     VAO vao;
-    Texture* texture;
+    TextureBase* texture;
     std::vector<GLuint>* indices;
 };
 

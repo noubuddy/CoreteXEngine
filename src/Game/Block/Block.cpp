@@ -5,7 +5,7 @@ Block::Block()
     // this->vertices = Vertices::GetVertices();
 }
 
-void Block::SetTexture(Texture texture)
+void Block::SetTexture(TextureSingle texture)
 {
     // RenderData renderData(123, 123, 13);
 }

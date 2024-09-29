@@ -2,7 +2,7 @@
 #define BLOCK_CLASS_H
 
 #include <vector>
-#include "../../Core/Graphics/Texture/Texture.h"
+#include "../../Core/Graphics/Texture/TextureSingle.h"
 #include "glm/vec3.hpp"
 #include "../../Core/Graphics/Render/Helpers/Vertices.h"
 #include "../../Core/Graphics/Render/Renderer.h"
@@ -12,7 +12,7 @@ class Block
 public:
     Block();
     
-    void SetTexture(Texture texture);
+    void SetTexture(TextureSingle texture);
 
     void Spawn(glm::vec3 Position, glm::vec3 Rotation);
 
