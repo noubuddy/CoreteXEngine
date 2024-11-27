@@ -30,3 +30,7 @@ ObjectBase::ObjectBase(Transform transform)
 void ObjectBase::Spawn()
 {
 }
+
+void ObjectBase::Update()
+{
+}

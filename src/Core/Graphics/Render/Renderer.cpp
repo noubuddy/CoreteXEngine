@@ -56,3 +56,8 @@ void Renderer::EnableDepthTest(bool enable)
         glDisable(GL_DEPTH_TEST);
     }
 }
+
+void Renderer::SetVSyncFreq(unsigned short t_frequency)
+{
+    glfwSwapInterval(t_frequency);
+}

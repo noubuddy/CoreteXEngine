@@ -7,6 +7,8 @@
 #include "GameObjects/ObjectBase.h"
 #include "Graphics/Render/Renderer.h"
 #include "Window/Window.h"
+#include "../Game/World/WorldManager.h"
+#include "Graphics/Camera/Camera.h"
 
 static float delta_time;
 
@@ -17,6 +19,8 @@ public:
 
     void StartUp();
 
+    void CreateDefaultGameWorld();
+
     static float GetDeltaTime();
 
 private:
@@ -24,6 +28,7 @@ private:
     
     void InitGraphics();
     void InitWindow();
+    void InitRenderData();
 
     void UpdateScene();
     void UpdateTick();
@@ -32,14 +37,20 @@ private:
     bool ShouldStop();
     void OnTerminate();
 
+    void CreateDefaultShaderProgram();
+
+    void CreateDefaultCamera();
+    void HandleInputs();
+    
     Window* CreateDefaultWindow();
     Window* m_current_window;
     
     float CalculateDeltaTime(float& previous_time);
 
-    std::vector<ObjectBase*> m_game_objects;
+    std::vector<Block*> m_game_objects;
 
     Renderer* m_renderer;
+    Camera* m_camera;
 };
 
 #endif

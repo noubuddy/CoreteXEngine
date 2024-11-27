@@ -2,18 +2,20 @@
 
 Block::Block()
 {
-    // this->vertices = Vertices::GetVertices();
+    this->m_vertices = Vertices::GetVertices();
+    this->m_indices = Indices::GetIndices();
+
+    // ApplyTexture();
 }
 
-void Block::SetTexture(TextureSingle texture)
+Block::~Block()
 {
-    // RenderData renderData(123, 123, 13);
+
 }
 
-void Block::Spawn(glm::vec3 Position, glm::vec3 Rotation)
+void Block::ApplyTexture()
 {
-}
-
-void Block::Render()
-{
+    m_texture_array = new TextureArray(m_textures, GL_TEXTURE_2D_ARRAY, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);   
+    // m_texture_array.TexUnit(shader_program, "texArray", 0);
+    // m_texture_array.Bind();
 }

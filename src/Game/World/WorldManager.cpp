@@ -4,12 +4,13 @@ WorldManager::WorldManager() : WorldData(nullptr)
 {
     if (!WorldData)
     {
-        WorldData = new std::vector<BlockData>;
+        WorldData = new std::vector<Block*>;
     }
 }
 
 WorldManager::~WorldManager()
 {
+    delete WorldData;
 }
 
 void WorldManager::GenerateWorldData()
@@ -49,36 +50,25 @@ void WorldManager::GenerateWorldData()
             // get first digit after the dot
             float afterDotValue = static_cast<int>(std::floor(std::fabs(noiseValue) * 10)) % 10;
 
-            BlockData blockData{};
-            blockData.Position = glm::vec3(x * CUBE_SIZE, afterDotValue * CUBE_SIZE, y * CUBE_SIZE);
+            Block* block = new Block();
+            block->SetLocation(glm::vec3(x * CUBE_SIZE, afterDotValue * CUBE_SIZE, y * CUBE_SIZE));
 
-            if (noiseValue > THRESHOLD)
-            {
-                blockData.Type = GRASS;
-            }
-            else if (noiseValue > 0.37 && noiseValue < THRESHOLD)
-            {
-                blockData.Type = SAND;
-            }
-            else
-            {
-                blockData.Type = WATER;
-            }
-
-            WorldData->push_back(blockData);
+            WorldData->push_back(block);
         }
     }
 }
 
-std::vector<BlockData>* WorldManager::GetWorldData()
+std::vector<Block*>* WorldManager::GetWorldData()
 {
-    return WorldData;
+    if (WorldData)
+        return WorldData;
 }
 
 void WorldManager::CleanWorldData()
 {
+    if (!WorldData)
+        return;
+    
     if (!WorldData->empty())
-    {
         WorldData->clear();
-    }
 }

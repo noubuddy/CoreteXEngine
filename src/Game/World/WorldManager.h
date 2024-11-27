@@ -3,19 +3,7 @@
 #include <vector>
 #include <glm/vec3.hpp>
 #include "../../Core/Utils/PerlinNoise.h"
-
-enum BlockType
-{
-    GRASS,
-    WATER,
-    SAND
-};
-
-struct BlockData
-{
-    glm::vec3 Position;
-    BlockType Type;
-};
+#include "../Block/Block.h"
 
 class WorldManager
 {
@@ -24,11 +12,11 @@ public:
     ~WorldManager();
 
     void GenerateWorldData();
-    std::vector<BlockData>* GetWorldData();
+    std::vector<Block*>* GetWorldData();
     void CleanWorldData();
 
 private:
-    std::vector<BlockData>* WorldData;
+    std::vector<Block*>* WorldData;
     
 };
 

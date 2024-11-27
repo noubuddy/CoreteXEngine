@@ -100,6 +100,9 @@ void Camera::Inputs(GLFWwindow* window)
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         firstClick = true;
     }
+
+    // std::cout << "Pos: " << Position.x << ", " << Position.y << ", " << Position.z << "\n";
+    // std::cout << "Orientation: " << Orientation.x << ", " << Orientation.y << ", " << Orientation.z << "\n";
 }
 
 float Camera::GetPosX()

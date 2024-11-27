@@ -17,6 +17,7 @@ public:
     void SetAsCurrentWindow();
     int WindowShouldClose();
     void SwapBuffers();
+    void PollEvents();
 
     GLFWwindow* GetCurrentWindow();
     

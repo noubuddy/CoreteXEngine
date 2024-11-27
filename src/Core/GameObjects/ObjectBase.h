@@ -10,6 +10,7 @@ public:
     ObjectBase();
     ObjectBase(glm::vec3 location, glm::vec3 rotation, glm::vec3 scale);
     ObjectBase(Transform transform);
+    virtual ~ObjectBase() = default;
 
     Transform GetTransform() {return m_transform;}
     glm::vec3 GetLocation() {return m_transform.GetLocation();}
@@ -25,7 +26,7 @@ public:
     
     void Spawn();
     
-    virtual void Update() = 0;
+    void Update();
 
 private:
     Transform m_transform;
