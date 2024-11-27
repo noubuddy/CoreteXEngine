@@ -9,9 +9,13 @@ void Engine::StartUp()
     InitGraphics();
     InitWindow();
 
-    m_renderer->EnableDepthTest(true);
     CreateDefaultShaderProgram();
+    InitRenderData();
     CreateDefaultCamera();
+
+    m_renderer->GetShaderProgram()->Activate();
+    m_renderer->EnableDepthTest(true);
+    m_renderer->SetVSyncFreq(0);
     
     // should be always at the end
     EngineLoop();
@@ -39,8 +43,6 @@ float Engine::GetDeltaTime()
 void Engine::EngineLoop()
 {
     float m_previous_time = (float)glfwGetTime();
-
-    InitRenderData();
     
     while (!ShouldStop())
     {
@@ -129,8 +131,8 @@ void Engine::UpdateTick()
         if (object->IsRenderable())
         {
             glm::mat4 model = glm::mat4(1.0f);
-            // model = glm::translate(glm::mat4(1.0f), object->GetLocation());
-            model = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, 0.f, 0.f));
+            model = glm::translate(glm::mat4(1.0f), object->GetLocation());
+            // model = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, 0.f, 0.f));
             
             m_camera->Matrix(80.f, 0.1f, 300.0f, *m_renderer->GetShaderProgram(), "camMatrix", model);
 
@@ -175,7 +177,7 @@ void Engine::CreateDefaultShaderProgram()
 
 void Engine::CreateDefaultCamera()
 {
-    m_camera = new Camera(1920, 1080, glm::vec3(0.0f, 0.0f, 0.0f));
+    m_camera = new Camera(1920, 1080, glm::vec3(10.0f, 100.0f, 10.0f));
 }
 
 void Engine::HandleInputs()
