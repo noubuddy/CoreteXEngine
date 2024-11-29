@@ -12,6 +12,7 @@ void Engine::StartUp()
     CreateDefaultShaderProgram();
     InitRenderData();
     CreateDefaultCamera();
+    Imgui::Init(m_current_window);
 
     m_renderer->GetShaderProgram()->Activate();
     m_renderer->EnableDepthTest(true);
@@ -49,6 +50,7 @@ void Engine::EngineLoop()
         delta_time = CalculateDeltaTime(m_previous_time);
         std::cout << "Delta time: " << GetDeltaTime() << "\n"; // just for test
 
+        Imgui::BeginFrame();
         HandleInputs();
         
         UpdateScene();
@@ -58,6 +60,7 @@ void Engine::EngineLoop()
 
         RenderFrame();
 
+        Imgui::EndFrame();
         m_current_window->SwapBuffers();
         m_current_window->PollEvents();
     }
@@ -159,6 +162,7 @@ bool Engine::ShouldStop()
 
 void Engine::OnTerminate()
 {
+    Imgui::Shutdown();
     m_current_window->DestroyWindow();
     
     glfwTerminate();

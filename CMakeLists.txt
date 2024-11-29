@@ -4,6 +4,11 @@ set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 
 project(CorteXngin C CXX)
 
+include_directories(libraries/include)
+link_directories(libraries/lib)
+
+set(PROJECT_NAME CorteXngin)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 ################################################################################
@@ -89,22 +94,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 ################################################################################
 
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
-
-function(add_include_directories_recursively base_dir)
-    file(GLOB_RECURSE subdirs RELATIVE ${base_dir} ${base_dir}/*)
-    foreach(subdir ${subdirs})
-        if(IS_DIRECTORY ${base_dir}/${subdir})
-            include_directories(${base_dir}/${subdir})
-        endif()
-    endforeach()
-endfunction()
-
-add_include_directories_recursively(${SRC_DIR}) 
-
-include_directories(libraries/include)
-link_directories(libraries/lib)
-
-set(PROJECT_NAME CorteXngin)
+set(IMGUI_DIR "${CMAKE_SOURCE_DIR}/libraries/include/imgui")
+set(IMGUI_BACKENDS
+    "${IMGUI_DIR}/backends/imgui_impl_glfw.cpp"
+    "${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp"
+)
 
 ################################################################################
 # Source groups
@@ -118,13 +112,24 @@ file(GLOB_RECURSE no_group_source_files
     "${SRC_DIR}/*.frag"
 )
 
+set(imgui_source_files
+    "${IMGUI_DIR}/imgui.cpp"
+    "${IMGUI_DIR}/imgui_draw.cpp"
+    "${IMGUI_DIR}/imgui_demo.cpp"
+    "${IMGUI_DIR}/imgui_tables.cpp"
+    "${IMGUI_DIR}/imgui_widgets.cpp"
+    ${IMGUI_BACKENDS}
+)
+
+include_directories(${IMGUI_DIR} ${IMGUI_DIR}/backends)
+
 #source_group("" FILES ${no_group_source_files})
 source_group(TREE ${SRC_DIR} FILES ${no_group_source_files})
 
 ################################################################################
 # Target
 ################################################################################
-add_executable(${PROJECT_NAME} ${no_group_source_files})
+add_executable(${PROJECT_NAME} ${no_group_source_files} ${imgui_source_files})
 
 use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 set(ROOT_NAMESPACE CorteXngin)
