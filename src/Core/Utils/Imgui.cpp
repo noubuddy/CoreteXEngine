@@ -39,7 +39,8 @@ void Imgui::BeginFrame()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    ImGui::ShowDemoWindow();
+    
+    ImGui::Text("Hello, world %d", 123);
 }
 
 void Imgui::EndFrame()
@@ -51,4 +52,14 @@ void Imgui::EndFrame()
 bool Imgui::WantCaptureMouse()
 {
     return ImGui::GetIO().WantCaptureMouse;
+}
+
+bool Imgui::ShowDebugMenu(float t_ms_per_frame, unsigned short t_fps, unsigned int t_objects_count, unsigned int t_triangles_count)
+{
+    ImGui::Text("Ms per frame %f", t_ms_per_frame);
+    ImGui::Text("FPS %i", t_fps);
+    ImGui::Text("Objects rendered %i", t_objects_count);
+    ImGui::Text("Triangles rendered %i", t_triangles_count);
+
+    return true;
 }

@@ -11,12 +11,24 @@
 #include "Graphics/Camera/Camera.h"
 #include "Utils/Imgui.h"
 
+#define ENGINE Engine::GetInstance()
+
 static float delta_time;
 
 class Engine
 {
 public:
-    Engine();
+    Engine(const Engine&) = delete;
+    Engine& operator=(const Engine&) = delete;
+
+    static Engine* GetInstance()
+    {
+        if (!m_engine_instance)
+        {
+            m_engine_instance = (Engine*)malloc(sizeof(Engine));
+        }
+        return m_engine_instance;
+    }
 
     void StartUp();
 
@@ -25,6 +37,9 @@ public:
     static float GetDeltaTime();
 
 private:
+
+    static Engine* m_engine_instance;
+    
     void EngineLoop();
     
     void InitGraphics();

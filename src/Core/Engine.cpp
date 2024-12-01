@@ -1,8 +1,6 @@
 #include "Engine.h"
 
-Engine::Engine()
-{
-}
+Engine* Engine::m_engine_instance = nullptr;
 
 void Engine::StartUp()
 {
@@ -48,7 +46,7 @@ void Engine::EngineLoop()
     while (!ShouldStop())
     {
         delta_time = CalculateDeltaTime(m_previous_time);
-        std::cout << "Delta time: " << GetDeltaTime() << "\n"; // just for test
+        // std::cout << "Delta time: " << GetDeltaTime() << "\n"; // just for test
 
         Imgui::BeginFrame();
         HandleInputs();

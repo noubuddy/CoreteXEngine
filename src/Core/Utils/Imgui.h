@@ -10,14 +10,14 @@ class Imgui
 {
 public:
     static void Init(Window* t_window);
-
     static void Shutdown();
 
     static void BeginFrame();
-
     static void EndFrame();
 
     static bool WantCaptureMouse();
+
+    static bool ShowDebugMenu(float t_ms_per_frame, unsigned short t_fps, unsigned int t_objects_count, unsigned int t_triangles_count);
 };
 
 #endif
