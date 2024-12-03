@@ -11,6 +11,10 @@
 #include "Graphics/Camera/Camera.h"
 #include "Utils/Imgui.h"
 
+/**
+ * @brief Provides a pointer to the engine
+ * @return Engine* 
+ */
 #define ENGINE Engine::GetInstance()
 
 static float delta_time;
@@ -18,14 +22,14 @@ static float delta_time;
 class Engine
 {
 public:
-    Engine(const Engine&) = delete;
-    Engine& operator=(const Engine&) = delete;
+    Engine(const Engine&) = delete; // disable copy constructor
+    Engine& operator=(const Engine&) = delete; // disable assignment operator
 
     static Engine* GetInstance()
     {
         if (!m_engine_instance)
         {
-            m_engine_instance = (Engine*)malloc(sizeof(Engine));
+            m_engine_instance = new Engine();
         }
         return m_engine_instance;
     }
@@ -37,6 +41,8 @@ public:
     static float GetDeltaTime();
 
 private:
+    
+    Engine(){}
 
     static Engine* m_engine_instance;
     

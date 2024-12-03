@@ -3,7 +3,7 @@
 
 int main()
 {
-    Engine* engine = Engine::GetInstance();
+    Engine* engine = ENGINE;
     CHECK(engine != nullptr, "Engine instance has not been initialized!")
 
     engine->CreateDefaultGameWorld();
