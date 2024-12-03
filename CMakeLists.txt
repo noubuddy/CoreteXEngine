@@ -11,6 +11,17 @@ set(PROJECT_NAME CorteXngin)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Platform-specific macros
+if(WIN32)
+    add_compile_definitions(PLATFORM_WINDOWS)
+elseif(UNIX AND NOT APPLE)
+    add_compile_definitions(PLATFORM_LINUX)
+elseif(APPLE)
+    add_compile_definitions(PLATFORM_MACOS)
+else()
+    message(FATAL_ERROR "Unsupported platform!")
+endif()
+
 ################################################################################
 # Set target arch type if empty. Visual studio solution generator provides it.
 ################################################################################
@@ -30,6 +41,10 @@ endif()
 set(CMAKE_CONFIGURATION_TYPES
     "Debug"
     "Release"
+    "DebugGame"
+    "Development"
+    "Shipping"
+    "Test"
     CACHE STRING "" FORCE
 )
 
@@ -64,6 +79,22 @@ if(MSVC)
     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS}")
     set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS}")
 endif()
+
+# Configure the flags for each configuration type
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
+set(CMAKE_CXX_FLAGS_DEBUGGAME "-g -O2 -DDEBUG_GAME")
+set(CMAKE_CXX_FLAGS_DEVELOPMENT "-g -O2 -DDEVELOPMENT")
+set(CMAKE_CXX_FLAGS_SHIPPING "-O3 -DNDEBUG -DSHIPPING")
+set(CMAKE_CXX_FLAGS_TEST "-g -O2 -DTEST")
+
+# Linker flags for each type, similar to above
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-g")
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-O3")
+set(CMAKE_EXE_LINKER_FLAGS_DEBUGGAME "-g -O2")
+set(CMAKE_EXE_LINKER_FLAGS_DEVELOPMENT "-g -O2")
+set(CMAKE_EXE_LINKER_FLAGS_SHIPPING "-O3 -DNDEBUG")
+set(CMAKE_EXE_LINKER_FLAGS_TEST "-g -O2")
 
 ################################################################################
 # Nuget packages function stub.
