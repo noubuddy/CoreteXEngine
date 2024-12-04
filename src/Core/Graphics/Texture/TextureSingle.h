@@ -3,14 +3,12 @@
 
 #include <glad/glad.h>
 #include <stb/stb_image.h>
-
 #include "TextureBase.h"
-#include "../Shader/Shader.h"
 
 class TextureSingle : public TextureBase
 {
 public:
-    TextureSingle(const char *image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type);
+    TextureSingle(const char *t_image, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type);
 };
 
 #endif

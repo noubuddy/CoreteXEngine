@@ -3,27 +3,27 @@
 
 std::vector<GLuint> Indices::GetIndices()
 {
-    std::vector<GLuint> FinalIndices;
+    std::vector<GLuint> finalIndices;
     
     for (int i = 0; i < 6; ++i)
     {
         for (int j = 0; j < 6; ++j)
         {
-            FinalIndices.push_back(indices[i][j]);
+            finalIndices.push_back(indices[i][j]);
         }
     }
     
-    return FinalIndices;
+    return finalIndices;
 }
 
 std::vector<GLuint> Indices::GetIndicesOfSide()
 {
-    std::vector<GLuint> FinalIndices;
+    std::vector<GLuint> finalIndices;
     
     for (int i = 0; i < 6; ++i)
     {
-        FinalIndices.push_back(indices[0][i]);
+        finalIndices.push_back(indices[0][i]);
     }
     
-    return FinalIndices;
+    return finalIndices;
 }

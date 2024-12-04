@@ -5,33 +5,33 @@
 
 std::vector<GLfloat> Vertices::GetVertices()
 {
-    std::vector<GLfloat> FinalVertices;
+    std::vector<GLfloat> finalVertices;
 
-    CubeSide cube_site;
+    CubeSide cubeSide;
     
     for (int i = 0; i < GetFacesAmount(); ++i)
     {
-        cube_site = static_cast<CubeSide>(i);
+        cubeSide = static_cast<CubeSide>(i);
         
-        for (int j = 0; j < GetVerticesAmount(cube_site); ++j)
+        for (int j = 0; j < GetVerticesAmount(cubeSide); ++j)
         {
-            FinalVertices.push_back(vertices[i][j]);
+            finalVertices.push_back(vertices[i][j]);
         }
     }
     
-    return FinalVertices;
+    return finalVertices;
 }
 
-std::vector<GLfloat> Vertices::GetVerticesBySide(CubeSide Side)
+std::vector<GLfloat> Vertices::GetVerticesBySide(CubeSide t_side)
 {
-    std::vector<GLfloat> FinalVertices;
+    std::vector<GLfloat> finalVertices;
     
-    for (int i = 0; i < GetVerticesAmount(Side); ++i)
+    for (int i = 0; i < GetVerticesAmount(t_side); ++i)
     {
-        FinalVertices.push_back(vertices[Side][i]);
+        finalVertices.push_back(vertices[t_side][i]);
     }
     
-    return FinalVertices;
+    return finalVertices;
 }
 
 int Vertices::GetFacesAmount()
@@ -39,9 +39,9 @@ int Vertices::GetFacesAmount()
     return vertices.size();
 }
 
-int Vertices::GetVerticesAmount(CubeSide Side)
+int Vertices::GetVerticesAmount(CubeSide t_side)
 {
-    return vertices[Side].size();
+    return vertices[t_side].size();
 }
 
 

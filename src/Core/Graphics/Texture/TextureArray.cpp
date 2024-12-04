@@ -1,44 +1,44 @@
 #include "TextureArray.h"
 
-TextureArray::TextureArray(std::vector<std::string> images, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type) : TextureBase(tex_type, slot, format, pixel_type)
+TextureArray::TextureArray(std::vector<std::string> t_images, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type) : TextureBase(t_tex_type, t_slot, t_format, t_pixel_type)
 {
-    type = tex_type;
+    type = t_tex_type;
     
-    int img_width, img_height, color_channels_number;
-    std::vector<unsigned char*> images_data;
+    int imgWidth, imgHeight, colorChannelsNumber;
+    std::vector<unsigned char*> imagesData;
     stbi_set_flip_vertically_on_load(true);
     
-    for (const std::string& path : images)
+    for (const std::string& path : t_images)
     {
-        unsigned char* bytes = stbi_load(path.c_str(), &img_width, &img_height, &color_channels_number, 4);
+        unsigned char* bytes = stbi_load(path.c_str(), &imgWidth, &imgHeight, &colorChannelsNumber, 4);
         if (bytes != nullptr)
         {
-            images_data.push_back(bytes);
+            imagesData.push_back(bytes);
         }
     }
     
     glGenTextures(1, &id);
-    glActiveTexture(slot);
-    glBindTexture(tex_type, id);
-    glTexImage3D(tex_type, 0, GL_RGB, 512, 512, images_data.size(), 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glActiveTexture(t_slot);
+    glBindTexture(t_tex_type, id);
+    glTexImage3D(t_tex_type, 0, GL_RGB, 512, 512, imagesData.size(), 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
     for (int i = 0; i < 6; i++)
     {
-        if (images_data[i])
+        if (imagesData[i])
         {
-            glTexSubImage3D(tex_type, 0, 0, 0, i, 512, 512, 1, format, pixel_type, images_data[i]);
+            glTexSubImage3D(t_tex_type, 0, 0, 0, i, 512, 512, 1, t_format, t_pixel_type, imagesData[i]);
         }
     }
 
-    glTexParameteri(tex_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(tex_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(tex_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(tex_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(t_tex_type, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(t_tex_type, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(t_tex_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(t_tex_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    for (unsigned char* data : images_data)
+    for (unsigned char* data : imagesData)
     {
         stbi_image_free(data);
     }
     
-    glBindTexture(tex_type, 0);
+    glBindTexture(t_tex_type, 0);
 }

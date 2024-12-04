@@ -4,7 +4,10 @@
 #include <cstdio>
 #include <iostream>
 #include <ostream>
+
+#if PLATFORM_WINDOWS
 #include <windows.h>
+#endif
 
 #define CHECK(expression, message) \
 Assertions::Assertions::Check(expression, message, __FILE__, __LINE__);
@@ -30,11 +33,12 @@ namespace Assertions
             {
                 std::string errMsg = FormatAssertMessage(t_expr_str, file, line);
 
-                { // if windows
-                    std::wstring wide_str(errMsg.begin(), errMsg.end());
-                    MessageBox(NULL, wide_str.c_str(), L"Assertion failed!", MB_OK);
+                #if PLATFORM_WINDOWS
+                {
+                    MessageBox(NULL, std::wstring(errMsg.begin(), errMsg.end()).c_str(), L"Assertion failed!", MB_OK);
                     exit(EXIT_FAILURE);
                 }
+                #endif
             }
         }
 

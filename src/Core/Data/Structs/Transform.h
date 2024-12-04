@@ -10,7 +10,7 @@ public:
     {
     }
 
-    Transform(glm::vec3 location, glm::vec3 rotation, glm::vec3 scale) : m_location(location), m_rotation(rotation), m_scale(scale)
+    Transform(glm::vec3 t_location, glm::vec3 t_rotation, glm::vec3 t_scale) : m_location(t_location), m_rotation(t_rotation), m_scale(t_scale)
     {
     }
     
@@ -18,10 +18,10 @@ public:
     glm::vec3 GetRotation() {return m_rotation;}
     glm::vec3 GetScale() {return m_scale;}
 
-    void SetTransform(glm::vec3 location, glm::vec3 rotation, glm::vec3 scale) {m_location = location; m_rotation = rotation; m_scale = scale;}
-    void SetLocation(glm::vec3 new_location) {m_location = new_location;}
-    void SetRotation(glm::vec3 new_rotation) {m_rotation = new_rotation;}
-    void SetScale(glm::vec3 new_scale) {m_scale = new_scale;}
+    void SetTransform(glm::vec3 t_location, glm::vec3 t_rotation, glm::vec3 t_scale) {m_location = t_location; m_rotation = t_rotation; m_scale = t_scale;}
+    void SetLocation(glm::vec3 t_new_location) {m_location = t_new_location;}
+    void SetRotation(glm::vec3 t_new_rotation) {m_rotation = t_new_rotation;}
+    void SetScale(glm::vec3 t_new_scale) {m_scale = t_new_scale;}
     
 private:
     glm::vec3 m_location;

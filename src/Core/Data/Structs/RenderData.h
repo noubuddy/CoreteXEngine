@@ -6,11 +6,11 @@
 
 struct RenderData
 {
-    RenderData(VAO vao, TextureBase& texture, std::vector<GLuint>& indices)
+    RenderData(VAO t_vao, TextureBase& t_texture, std::vector<GLuint>& t_indices)
     {
-        this->vao = vao;
-        this->texture = &texture;
-        this->indices = &indices;
+        this->vao = t_vao;
+        this->texture = &t_texture;
+        this->indices = &t_indices;
     }
     
     VAO vao;

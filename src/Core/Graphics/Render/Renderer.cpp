@@ -3,31 +3,21 @@
 void Renderer::Render()
 {
     // TODO: Rewrite renderer to operate with different types of textures (SINGLE/ARRAY)
-    for (auto RenderData : mRenderData)
+    for (auto RenderData : m_render_data)
     {
         RenderData.vao.Bind();
-        // if (RenderData.texture)
-        // {
-        //     RenderData.texture->Bind();
-        // }
-            
         glDrawElements(GL_TRIANGLES, (GLsizei) RenderData.indices->size(), GL_UNSIGNED_INT, nullptr);
-        
         RenderData.vao.Unbind();
-        // if (RenderData.texture)
-        // {
-        //     RenderData.texture->Unbind();
-        // }
     }
 }
 
-void Renderer::PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, TextureBase& texture)
+void Renderer::PushRenderData(std::vector<GLfloat>& t_vertices, std::vector<GLuint>& t_indices, TextureBase& t_texture)
 {
     VAO vao;
     vao.Bind();
 
-    VBO vbo(vertices);
-    EBO ebo(indices);
+    VBO vbo(t_vertices);
+    EBO ebo(t_indices);
 
     // vertex position
     vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, 9 * sizeof(float), nullptr);
@@ -38,16 +28,16 @@ void Renderer::PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint
     // texture index
     vao.LinkAttrib(vbo, 3, 1, GL_FLOAT, 9 * sizeof(float), (void*)(8 * sizeof(float)));
 
-    mRenderData.push_back(RenderData(vao, texture, indices));
+    m_render_data.push_back(RenderData(vao, t_texture, t_indices));
 
     vao.Unbind();
     vbo.Unbind();
     ebo.Unbind();
 }
 
-void Renderer::EnableDepthTest(bool enable)
+void Renderer::EnableDepthTest(bool t_enable)
 {
-    if (enable)
+    if (t_enable)
     {
         glEnable(GL_DEPTH_TEST);
     }

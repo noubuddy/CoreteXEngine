@@ -6,18 +6,17 @@
 #include<fstream>
 #include<sstream>
 #include<iostream>
-#include<cerrno>
 
 class Shader
 {
 public:
     GLuint id;
-    Shader(const char* vertexFile, const char* fragmentFile);
+    Shader(const char* t_vertex_file, const char* t_fragment_file);
     void Activate();
     void Delete();
 
 private:
-    std::string ReadFile(const char* filename);
-    void CompileShader(unsigned int shader);
+    std::string ReadFile(const char* t_filename);
+    void CompileShader(unsigned int t_shader);
 };
 #endif

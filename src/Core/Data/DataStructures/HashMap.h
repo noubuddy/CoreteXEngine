@@ -7,30 +7,30 @@ class HashMap
 {
 public:
 
-    typedef struct hash_map_item
+    typedef struct HashMapItem
     {
         K* key;
         V* value;
-    } hash_map_item;
+    } HashMapItem;
     
-    HashMap(int size);
+    HashMap(int t_size);
 
-    HashMap* CreateTable(int size);
-    void FreeTable(HashMap* table);
+    HashMap* CreateTable(int t_size);
+    void FreeTable(HashMap* t_table);
 
-    hash_map_item* CreateItem(K* key, V* value);
-    void FreeItem(hash_map_item* item);
+    HashMapItem* CreateItem(K* t_key, V* t_value);
+    void FreeItem(HashMapItem* t_item);
 
-    bool Insert(K* key, V* value);
-    V* Search(K* key);
+    bool Insert(K* t_key, V* t_value);
+    V* Search(K* t_key);
 
 private:
 
-    int HashFunction(K* key);
-    void HandleCollision(hash_map_item* item);
+    int HashFunction(K* t_key);
+    void HandleCollision(HashMapItem* t_item);
 
     // array of pointers to item
-    hash_map_item** m_items;
+    HashMapItem** m_items;
     // size of the hash table
     int m_size;
     // number of elements

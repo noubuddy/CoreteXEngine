@@ -13,7 +13,7 @@
 class TextureArray : public TextureBase
 {
 public:
-    TextureArray(std::vector<std::string> images, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type);
+    TextureArray(std::vector<std::string> t_images, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type);
 };
 
 #endif

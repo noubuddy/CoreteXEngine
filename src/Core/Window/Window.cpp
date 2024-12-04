@@ -1,11 +1,11 @@
 #include "Window.h"
 
-Window::Window(unsigned short width, unsigned short height, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
+Window::Window(unsigned short t_width, unsigned short t_height, const char* t_title, GLFWmonitor* t_monitor, GLFWwindow* t_share)
 {
-    m_width = width;
-    m_height = height;
-    m_title = title;
-    m_monitor = monitor;
+    m_width = t_width;
+    m_height = t_height;
+    m_title = t_title;
+    m_monitor = t_monitor;
 }
 
 Window::~Window()

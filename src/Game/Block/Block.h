@@ -2,7 +2,6 @@
 #define BLOCK_CLASS_H
 
 #include <vector>
-#include "glm/vec3.hpp"
 #include "../../Core/Graphics/Render/Helpers/Vertices.h"
 #include "../../Core/Graphics/Render/Helpers/Indices.h"
 #include "../../Core/GameObjects/ObjectBase.h"

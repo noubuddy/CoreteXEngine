@@ -9,10 +9,10 @@
 class TextureBase
 {
 public:
-    TextureBase(GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type);
+    TextureBase(GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type);
     virtual ~TextureBase();
 
-    void TexUnit(Shader &shader, const char *uniform, GLuint unit);
+    void TexUnit(Shader &t_shader, const char *t_uniform, GLuint t_unit);
     void Bind();
     void Unbind();
     void Delete();

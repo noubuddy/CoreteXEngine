@@ -1,28 +1,28 @@
 ﻿#include "Shader.h"
 
-Shader::Shader(const char* vertexFile, const char* fragmentFile)
+Shader::Shader(const char* t_vertex_file, const char* t_fragment_file)
 {
-    std::string vertex_code = ReadFile(vertexFile);
-    std::string fragment_code = ReadFile(fragmentFile);
+    std::string vertexCode = ReadFile(t_vertex_file);
+    std::string fragmentCode = ReadFile(t_fragment_file);
 
-    const char *vertex_shader_source = vertex_code.c_str();
-    const char *fragment_shader_source = fragment_code.c_str();
+    const char *vertexShaderSource = vertexCode.c_str();
+    const char *fragmentShaderSource = fragmentCode.c_str();
 
-    const GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, &vertex_shader_source, nullptr);
-    CompileShader(vertex_shader);
+    const GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
+    CompileShader(vertexShader);
 
-    const GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment_shader, 1, &fragment_shader_source, nullptr);
-    CompileShader(fragment_shader);
+    const GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
+    CompileShader(fragmentShader);
 
     id = glCreateProgram();
-    glAttachShader(id, vertex_shader);
-    glAttachShader(id, fragment_shader);
+    glAttachShader(id, vertexShader);
+    glAttachShader(id, fragmentShader);
     glLinkProgram(id);
 	
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
 }
 
 void Shader::Activate()
@@ -36,9 +36,9 @@ void Shader::Delete()
     glDeleteProgram(id);
 }
 
-std::string Shader::ReadFile(const char* filename)
+std::string Shader::ReadFile(const char* t_filename)
 {
-    std::ifstream in(filename, std::ios::binary);
+    std::ifstream in(t_filename, std::ios::binary);
 
     if (!in)
         throw errno;
@@ -52,20 +52,20 @@ std::string Shader::ReadFile(const char* filename)
     return content;
 }
 
-void Shader::CompileShader(unsigned shader)
+void Shader::CompileShader(unsigned t_shader)
 {
-    glCompileShader(shader);
+    glCompileShader(t_shader);
 
     int result;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &result);
+    glGetShaderiv(t_shader, GL_COMPILE_STATUS, &result);
     
     if (result == false)
     {
         int lenght;
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &lenght);
+        glGetShaderiv(t_shader, GL_INFO_LOG_LENGTH, &lenght);
         char* message = (char*)alloca(lenght * sizeof(char));
-        glGetShaderInfoLog(shader, lenght, &lenght, message);
-        glDeleteProgram(shader);
+        glGetShaderInfoLog(t_shader, lenght, &lenght, message);
+        glDeleteProgram(t_shader);
         
         std::cout << "Error occured when compiling shaders\n";
         std::cout << message << "\n";

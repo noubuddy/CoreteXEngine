@@ -1,16 +1,16 @@
 #include "TextureBase.h"
 
-TextureBase::TextureBase(GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type): id(0), type(0)
+TextureBase::TextureBase(GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type): id(0), type(0)
 {
 }
 
 TextureBase::~TextureBase() = default;
 
-void TextureBase::TexUnit(Shader& shader, const char* uniform, GLuint unit)
+void TextureBase::TexUnit(Shader& t_shader, const char* t_uniform, GLuint t_unit)
 {
-    GLuint tex_uni = glGetUniformLocation(shader.id, uniform);
-    shader.Activate();
-    glUniform1i(tex_uni, unit);
+    GLuint texUni = glGetUniformLocation(t_shader.id, t_uniform);
+    t_shader.Activate();
+    glUniform1i(texUni, t_unit);
 }
 
 void TextureBase::Bind()

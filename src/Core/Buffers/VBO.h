@@ -6,11 +6,10 @@
 
 class VBO
 {
-private:
-    GLuint id;
+    GLuint m_id;
 
 public:
-    VBO(std::vector<GLfloat> vertices);
+    VBO(std::vector<GLfloat> t_vertices);
 
     void Bind();
     void Unbind();

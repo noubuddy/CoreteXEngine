@@ -3,12 +3,11 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-// #include <cstdlib>
 
 class Window
 {
 public:
-    Window(unsigned short int width, unsigned short int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share);
+    Window(unsigned short int t_width, unsigned short int t_height, const char* t_title, GLFWmonitor* t_monitor, GLFWwindow* t_share);
     ~Window();
 
     GLFWwindow* CreateWindow();

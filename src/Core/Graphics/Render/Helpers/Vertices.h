@@ -20,17 +20,17 @@ public:
     
     static std::vector<GLfloat> GetVertices();
 
-    static std::vector<GLfloat> GetVerticesBySide(CubeSide Side);
+    static std::vector<GLfloat> GetVerticesBySide(CubeSide t_side);
     
-    static const int VerticesAmountFull = 192;
+    static const int vertices_amount_full = 192;
 
-    static const int VerticesAmountSide = 32;
+    static const int vertices_amount_side = 32;
 
 private:
 
     static int GetFacesAmount();
 
-    static int GetVerticesAmount(CubeSide Side);
+    static int GetVerticesAmount(CubeSide t_side);
     
 };
 #endif

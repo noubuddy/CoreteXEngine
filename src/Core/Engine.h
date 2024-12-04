@@ -67,7 +67,7 @@ private:
     Window* CreateDefaultWindow();
     Window* m_current_window;
     
-    float CalculateDeltaTime(float& previous_time);
+    float CalculateDeltaTime(float& t_previous_time);
 
     std::vector<Block*> m_game_objects;
 

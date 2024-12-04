@@ -1,63 +1,63 @@
 // #include "LinkedList.h"
 //
 // template <typename T>
-// void LinkedList<T>::InsertNode(T* data)
+// void LinkedList<T>::InsertNode(T* t_data)
 // {
-//     LinkedListNode* new_node = new LinkedListNode(data);
+//     LinkedListNode* newNode = new LinkedListNode(t_data);
 //
-//     if (new_node == nullptr)
+//     if (newNode == nullptr)
 //     {
 //         // TODO: add check
 //     }
 //
-//     if (head == nullptr)
+//     if (m_head == nullptr)
 //     {
-//         head = new_node;
+//         m_head = newNode;
 //         return;
 //     }
 //
-//     LinkedListNode* node_iter = head;
-//     while (node_iter->next != nullptr)
+//     LinkedListNode* nodeIter = m_head;
+//     while (nodeIter->next != nullptr)
 //     {
-//         node_iter = node_iter->next;
+//         nodeIter = nodeIter->next;
 //     }
 //
-//     node_iter->next = new_node;
+//     nodeIter->next = newNode;
 // }
 //
 // template <typename T>
-// void LinkedList<T>::DeleteNode(int NodeOffset)
+// void LinkedList<T>::DeleteNode(int t_node_offset)
 // {
-//     LinkedListNode* node_temp1 = head, *node_temp2 = nullptr;
-//     int list_length = 0;
+//     LinkedListNode* nodeTemp1 = m_head, *nodeTemp2 = nullptr;
+//     int listLength = 0;
 //
-//     if (head == nullptr)
+//     if (m_head == nullptr)
 //     {
 //         // TODO: add check
 //         return;
 //     }
 //
-//     while (node_temp1 != nullptr)
+//     while (nodeTemp1 != nullptr)
 //     {
-//         node_temp1 = node_temp1->next;
-//         list_length++;
+//         nodeTemp1 = nodeTemp1->next;
+//         listLength++;
 //     }
 //
-//     if (list_length < NodeOffset)
+//     if (listLength < t_node_offset)
 //     {
 //         // TODO: add check
 //         return;
 //     }
 //
-//     node_temp1 = head;
+//     nodeTemp1 = m_head;
 //
-//     if (NodeOffset-- > 1)
+//     if (t_node_offset-- > 1)
 //     {
-//         node_temp2 = node_temp1;
-//         node_temp1 = node_temp1->next;
+//         nodeTemp2 = nodeTemp1;
+//         nodeTemp1 = nodeTemp1->next;
 //     }
 //
-//     node_temp2->next = node_temp1->next;
+//     nodeTemp2->next = nodeTemp1->next;
 //
-//     delete node_temp1;
+//     delete nodeTemp1;
 // }

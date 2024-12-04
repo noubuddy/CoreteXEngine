@@ -12,6 +12,6 @@ private:
     
 public:
     PlayableCharacterBase();
-    PlayableCharacterBase(glm::vec3 Location, glm::vec3 Rotation, glm::vec3 Scale);
+    PlayableCharacterBase(glm::vec3 t_location, glm::vec3 t_rotation, glm::vec3 t_scale);
     
 };

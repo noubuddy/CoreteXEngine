@@ -1,16 +1,16 @@
 #include "WorldManager.h"
 
-WorldManager::WorldManager() : WorldData(nullptr)
+WorldManager::WorldManager() : m_world_data(nullptr)
 {
-    if (!WorldData)
+    if (!m_world_data)
     {
-        WorldData = new std::vector<Block*>;
+        m_world_data = new std::vector<Block*>;
     }
 }
 
 WorldManager::~WorldManager()
 {
-    delete WorldData;
+    delete m_world_data;
 }
 
 void WorldManager::GenerateWorldData()
@@ -35,7 +35,7 @@ void WorldManager::GenerateWorldData()
         {
             for (int z = 0; z < GRID_SIZE; ++z)
             {
-                noiseValues[y][x] = noise.noise(x * NOISE_SCALE, y * NOISE_SCALE, z * NOISE_SCALE);
+                noiseValues[y][x] = noise.Noise(x * NOISE_SCALE, y * NOISE_SCALE, z * NOISE_SCALE);
             }
         }
     }
@@ -53,22 +53,22 @@ void WorldManager::GenerateWorldData()
             Block* block = new Block();
             block->SetLocation(glm::vec3(x * CUBE_SIZE, afterDotValue * CUBE_SIZE, y * CUBE_SIZE));
 
-            WorldData->push_back(block);
+            m_world_data->push_back(block);
         }
     }
 }
 
 std::vector<Block*>* WorldManager::GetWorldData()
 {
-    if (WorldData)
-        return WorldData;
+    if (m_world_data)
+        return m_world_data;
 }
 
 void WorldManager::CleanWorldData()
 {
-    if (!WorldData)
+    if (!m_world_data)
         return;
     
-    if (!WorldData->empty())
-        WorldData->clear();
+    if (!m_world_data->empty())
+        m_world_data->clear();
 }

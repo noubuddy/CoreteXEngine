@@ -1,7 +1,7 @@
 #ifndef WORLD_MANAGER_CLASS
 #define WORLD_MANAGER_CLASS
+
 #include <vector>
-#include <glm/vec3.hpp>
 #include "../../Core/Utils/PerlinNoise.h"
 #include "../Block/Block.h"
 
@@ -16,7 +16,7 @@ public:
     void CleanWorldData();
 
 private:
-    std::vector<Block*>* WorldData;
+    std::vector<Block*>* m_world_data;
     
 };
 

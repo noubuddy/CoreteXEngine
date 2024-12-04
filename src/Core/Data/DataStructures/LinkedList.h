@@ -1,13 +1,10 @@
 // #ifndef LINKED_LIST_CLASS_H
 // #define LINKED_LIST_CLASS_H
 //
-// #include <cstdlib>
-// #include <iostream>
-//
 // template <typename T>
 // class LinkedList
 // {
-//
+//     
 // private:
 //     typedef struct LinkedListNode
 //     {
@@ -20,22 +17,22 @@
 //             this->next = nullptr;
 //         }
 //         
-//         LinkedListNode(T* data)
+//         LinkedListNode(T* t_data)
 //         {
-//             this->data = data;
+//             this->data = t_data;
 //             this->next = nullptr;
 //         }
 //     } LinkedListNode;
 //     
-//     LinkedListNode* head;
+//     LinkedListNode* m_head;
 //
 // public:
 //
-//     LinkedList() : head(nullptr) {}
+//     LinkedList() : m_head(nullptr) {}
 //
-//     void InsertNode(T* data);
+//     void InsertNode(T* t_data);
 //
-//     void DeleteNode(int NodeOffset);
+//     void DeleteNode(int t_node_offset);
 // };
 //
 // #endif

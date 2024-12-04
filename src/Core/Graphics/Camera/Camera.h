@@ -1,25 +1,23 @@
 ﻿#ifndef CAMERA_CLASS_H
 #define CAMERA_CLASS_H
 
-#include <glad/glad.h>
+#include<glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/vector_angle.hpp>
-
 #include "../../Utils/Imgui.h"
 #include "../Shader/Shader.h"
 
 class Camera
 {
 public:
-    glm::vec3 Position;
-    glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 position;
+    glm::vec3 orientation = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
-    bool firstClick = true;
+    bool first_click = true;
     
     int width;
     int height;
@@ -27,11 +25,11 @@ public:
     float speed = 0.6f;
     float sensitivity = 100.0f;
 
-    Camera(int width, int height, glm::vec3 position);
+    Camera(int t_width, int t_height, glm::vec3 t_position);
 
     glm::mat4 GetViexMatrix();
-    void Matrix(float fov_deg, float near_plane, float far_plane, Shader &shader, const char *uniform, glm::mat4 model);
-    void Inputs(GLFWwindow *window);
+    void Matrix(float t_fov_deg, float t_near_plane, float t_far_plane, Shader &t_shader, const char *t_uniform, glm::mat4 t_model);
+    void Inputs(GLFWwindow *t_window);
 
     // getters
     float GetPosX();
@@ -39,9 +37,9 @@ public:
     float GetPosZ();
 
     // setters
-    void SetPosX(float newPosX);
-    void SetPosY(float newPosY);
-    void SetPosZ(float newPosZ);
+    void SetPosX(float t_new_pos_x);
+    void SetPosY(float t_new_pos_y);
+    void SetPosZ(float t_new_pos_z);
 };
 
 

@@ -13,9 +13,9 @@ public:
     
     void Render();
     
-    void PushRenderData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices, TextureBase& texture);
+    void PushRenderData(std::vector<GLfloat>& t_vertices, std::vector<GLuint>& t_indices, TextureBase& t_texture);
 
-    void EnableDepthTest(bool enable);
+    void EnableDepthTest(bool t_enable);
 
     void SetVSyncFreq(unsigned short t_frequency);
 
@@ -25,7 +25,7 @@ public:
 
 private:
 
-    std::vector<RenderData> mRenderData;
+    std::vector<RenderData> m_render_data;
 
     Shader* m_shader_program;
     

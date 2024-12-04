@@ -10,19 +10,19 @@ ObjectBase::ObjectBase()
     SetIsRenderable(true);
 }
 
-ObjectBase::ObjectBase(glm::vec3 location, glm::vec3 rotation, glm::vec3 scale)
+ObjectBase::ObjectBase(glm::vec3 t_location, glm::vec3 t_rotation, glm::vec3 t_scale)
 {
     m_transform.SetTransform(
-        location,
-        rotation,
-        scale);
+        t_location,
+        t_rotation,
+        t_scale);
 
     SetIsRenderable(true);
 }
 
-ObjectBase::ObjectBase(Transform transform)
+ObjectBase::ObjectBase(Transform t_transform)
 {
-    m_transform = transform;
+    m_transform = t_transform;
 
     SetIsRenderable(true);
 }

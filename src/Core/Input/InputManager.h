@@ -5,15 +5,15 @@
 class InputManager
 {
 public:
-    InputManager(GLFWwindow* window);
+    InputManager(GLFWwindow* t_window);
 
 protected:
-    void BindKeyboardEvent(int key, int state, void (*event)());
+    void BindKeyboardEvent(int t_key, int t_state, void (*t_event)());
 
 private:
     virtual void EventBindings();
 
-    GLFWwindow* window;
+    GLFWwindow* m_window;
     
 };
 

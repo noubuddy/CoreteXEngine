@@ -1,23 +1,23 @@
 ﻿#include "TextureSingle.h"
 
-TextureSingle::TextureSingle(const char* image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type) : TextureBase(tex_type, slot, format, pixel_type)
+TextureSingle::TextureSingle(const char* t_image, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type) : TextureBase(t_tex_type, t_slot, t_format, t_pixel_type)
 {
-    type = tex_type;
+    type = t_tex_type;
 
-    int img_width, img_height, color_channels_number;
+    int imgWidth, imgHeight, colorChannelsNumber;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *bytes = stbi_load(image, &img_width, &img_height, &color_channels_number, 0);
+    unsigned char *bytes = stbi_load(t_image, &imgWidth, &imgHeight, &colorChannelsNumber, 0);
 
     glGenTextures(1, &id);
-    glActiveTexture(slot);
-    glBindTexture(tex_type, id);
+    glActiveTexture(t_slot);
+    glBindTexture(t_tex_type, id);
 
-    glTexParameteri(tex_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(tex_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(t_tex_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(t_tex_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTexImage2D(tex_type, 0, GL_RGB, img_width, img_height, 0, format, pixel_type, bytes);
-    glGenerateMipmap(tex_type);
+    glTexImage2D(t_tex_type, 0, GL_RGB, imgWidth, imgHeight, 0, t_format, t_pixel_type, bytes);
+    glGenerateMipmap(t_tex_type);
 
     stbi_image_free(bytes);
-    glBindTexture(tex_type, 0);
+    glBindTexture(t_tex_type, 0);
 }
