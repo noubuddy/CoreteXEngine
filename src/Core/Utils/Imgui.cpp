@@ -56,6 +56,7 @@ bool Imgui::WantCaptureMouse()
 
 bool Imgui::ShowDebugMenu(float t_ms_per_frame, unsigned short t_fps, unsigned int t_objects_count, unsigned int t_triangles_count)
 {
+    ImGui::SetWindowFontScale(2.0);
     ImGui::Text("Ms per frame %f", t_ms_per_frame);
     ImGui::Text("FPS %i", t_fps);
     ImGui::Text("Objects rendered %i", t_objects_count);
