@@ -22,14 +22,16 @@ public:
     int width;
     int height;
 
-    float speed = 0.6f;
+    float speed = 50.0f;
     float sensitivity = 100.0f;
 
     Camera(int t_width, int t_height, glm::vec3 t_position);
 
+    void Tick(float& t_delta_time, GLFWwindow* t_window);
+
     glm::mat4 GetViexMatrix();
     void Matrix(float t_fov_deg, float t_near_plane, float t_far_plane, Shader &t_shader, const char *t_uniform, glm::mat4 t_model);
-    void Inputs(GLFWwindow *t_window);
+    void Inputs(GLFWwindow *t_window, float& t_delta_time);
 
     // getters
     float GetPosX();

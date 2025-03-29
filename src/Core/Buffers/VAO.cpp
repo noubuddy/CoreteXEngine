@@ -2,6 +2,10 @@
 
 VAO::VAO()
 {
+}
+
+void VAO::Init()
+{
     glGenVertexArrays(1, &m_id);
 }
 

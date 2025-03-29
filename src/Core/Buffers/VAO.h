@@ -10,6 +10,7 @@ class VAO
 
 public:
     VAO();
+    void Init();
 
     void LinkAttrib(VBO& t_vbo, GLuint t_layout, GLuint t_num_components, GLenum t_type, GLsizeiptr t_stride, void* t_offset);
     void Bind();

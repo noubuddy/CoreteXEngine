@@ -7,6 +7,11 @@ Camera::Camera(int t_width, int t_height, glm::vec3 t_position)
     position = t_position;
 }
 
+void Camera::Tick(float& t_delta_time, GLFWwindow* t_window)
+{
+    Inputs(t_window, t_delta_time);
+}
+
 glm::mat4 Camera::GetViexMatrix()
 {
     return glm::lookAt(position, position + orientation, up);
@@ -25,46 +30,48 @@ void Camera::Matrix(float t_fov_deg, float t_near_plane, float t_far_plane, Shad
     glUniformMatrix4fv(glGetUniformLocation(t_shader.id, t_uniform), 1, GL_FALSE, glm::value_ptr(projection * view * t_model));
 }
 
-void Camera::Inputs(GLFWwindow* t_window)
+void Camera::Inputs(GLFWwindow* t_window, float& t_delta_time)
 {
+    float adjustedSpeed = speed * t_delta_time;
+    
     if (glfwGetKey(t_window, GLFW_KEY_W) == GLFW_PRESS)
     {
-        position += speed * orientation;
+        position += adjustedSpeed * orientation;
     }
     
     if (glfwGetKey(t_window, GLFW_KEY_A) == GLFW_PRESS)
     {
-        position += speed * -glm::normalize(glm::cross(orientation, up));
+        position += adjustedSpeed * -glm::normalize(glm::cross(orientation, up));
     }
     
     if (glfwGetKey(t_window, GLFW_KEY_S) == GLFW_PRESS)
     {
-        position += speed * -orientation;
+        position += adjustedSpeed * -orientation;
     }
     
     if (glfwGetKey(t_window, GLFW_KEY_D) == GLFW_PRESS)
     {
-        position += speed * glm::normalize(glm::cross(orientation, up));
+        position += adjustedSpeed * glm::normalize(glm::cross(orientation, up));
     }
 
     if (glfwGetKey(t_window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
-        position += speed * up;
+        position += adjustedSpeed * up;
     }
 
     if (glfwGetKey(t_window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
     {
-        position += speed * -up;
+        position += adjustedSpeed * -up;
     }
 
     if (glfwGetKey(t_window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
     {
-        speed = 1.f;
+        speed = 100.0f;
     }
 
     else if (glfwGetKey(t_window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
     {
-        speed = 0.6f;
+        speed = 50.0f;
     }
 
     if (glfwGetMouseButton(t_window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS && !Imgui::WantCaptureMouse())

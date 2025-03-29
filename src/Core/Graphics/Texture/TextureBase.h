@@ -9,6 +9,7 @@
 class TextureBase
 {
 public:
+    TextureBase() = default;
     TextureBase(GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type);
     virtual ~TextureBase();
 

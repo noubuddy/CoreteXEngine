@@ -1,14 +1,13 @@
+#include "Core/Application.h"
 #include "Core/Engine.h"
-#include "Core/Utils/Debug/Assertions/Assertions.h"
+#include "Core/Core.h"
 
 int main()
 {
-    Engine* engine = ENGINE;
-    CHECK(engine != nullptr, "Engine instance has not been initialized!")
+    Application<Engine> engineApp;
+    engineApp.Initialize();
+    engineApp.StartUp();
+    engineApp.ShutDown();
 
-    engine->CreateDefaultGameWorld();
-
-    engine->StartUp();
-
-    return 0;
+    return core::RESULT_SUCCESS;
 }

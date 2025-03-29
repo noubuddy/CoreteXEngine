@@ -9,6 +9,7 @@ class VBO
     GLuint m_id;
 
 public:
+    VBO() = default;
     VBO(std::vector<GLfloat> t_vertices);
 
     void Bind();

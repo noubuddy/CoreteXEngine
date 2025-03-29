@@ -9,6 +9,8 @@
 #include "Window/Window.h"
 #include "../Game/World/WorldManager.h"
 #include "Graphics/Camera/Camera.h"
+#include "Graphics/Render/RenderPasses/DrawCubesRenderPass.h"
+#include "Interfaces/IApplication.h"
 #include "Utils/Imgui.h"
 
 /**
@@ -19,32 +21,28 @@
 
 static float delta_time;
 
-class Engine
+class Engine : public IApplication
 {
 public:
-    Engine(const Engine&) = delete; // disable copy constructor
-    Engine& operator=(const Engine&) = delete; // disable assignment operator
+    Engine() = default;
+    ~Engine() override = default;
+    
+    bool StartUp() override;
+    bool Initialize() override;
+    bool ShutDown() override;
+    // Engine& operator=(const Engine&) = delete; // disable assignment operator
 
-    static Engine* GetInstance()
+    static Engine& GetInstance()
     {
-        if (!m_engine_instance)
-        {
-            m_engine_instance = new Engine();
-        }
         return m_engine_instance;
     }
 
-    void StartUp();
-
     void CreateDefaultGameWorld();
-
     static float GetDeltaTime();
 
 private:
-    
-    Engine(){}
 
-    static Engine* m_engine_instance;
+    static Engine m_engine_instance;
     
     void EngineLoop();
     
@@ -53,7 +51,7 @@ private:
     void InitRenderData();
 
     void UpdateScene();
-    void UpdateTick();
+    void UpdateTick(float& t_delta_time);
     void RenderFrame();
 
     bool ShouldStop();
@@ -68,6 +66,8 @@ private:
     Window* m_current_window;
     
     float CalculateDeltaTime(float& t_previous_time);
+
+    DrawCubesRenderPass m_cube_render_pass;
 
     std::vector<Block*> m_game_objects;
 

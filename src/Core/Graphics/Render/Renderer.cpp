@@ -6,7 +6,7 @@ void Renderer::Render()
     for (auto RenderData : m_render_data)
     {
         RenderData.vao.Bind();
-        glDrawElements(GL_TRIANGLES, (GLsizei) RenderData.indices->size(), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
         RenderData.vao.Unbind();
     }
 }

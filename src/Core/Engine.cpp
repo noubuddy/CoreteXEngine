@@ -1,11 +1,38 @@
 #include "Engine.h"
 
-Engine* Engine::m_engine_instance = nullptr;
+Engine Engine::m_engine_instance;
 
-void Engine::StartUp()
+std::vector<CubeAttribs> cubes_draw_commands;
+
+bool Engine::StartUp()
 {
+    // InitGraphics();
+    // InitWindow();
+    //
+    // m_cube_render_pass.Initialize();
+    //
+    // CreateDefaultShaderProgram();
+    // InitRenderData();
+    // CreateDefaultCamera();
+    // Imgui::Init(m_current_window);
+    //
+    // m_renderer->GetShaderProgram()->Activate();
+    // m_renderer->EnableDepthTest(true);
+    // m_renderer->SetVSyncFreq(0);
+    
+    // should be always at the end
+    EngineLoop();
+
+    return true;
+}
+
+bool Engine::Initialize()
+{
+    CreateDefaultGameWorld();
     InitGraphics();
     InitWindow();
+
+    m_cube_render_pass.Initialize();
 
     CreateDefaultShaderProgram();
     InitRenderData();
@@ -15,9 +42,13 @@ void Engine::StartUp()
     m_renderer->GetShaderProgram()->Activate();
     m_renderer->EnableDepthTest(true);
     m_renderer->SetVSyncFreq(0);
-    
-    // should be always at the end
-    EngineLoop();
+
+    return true;
+}
+
+bool Engine::ShutDown()
+{
+    return true;
 }
 
 void Engine::CreateDefaultGameWorld()
@@ -31,6 +62,7 @@ void Engine::CreateDefaultGameWorld()
     for(Block* block : *worldData)
     {
         m_game_objects.push_back(block);
+        cubes_draw_commands.push_back({block->GetLocation()});
     }
 }
 
@@ -48,17 +80,17 @@ void Engine::EngineLoop()
         delta_time = CalculateDeltaTime(previousTime);
         // std::cout << "Delta time: " << GetDeltaTime() << "\n"; // just for test
 
-        Imgui::BeginFrame();
-        HandleInputs();
+        //Imgui::BeginFrame();
+        // HandleInputs();
         
         UpdateScene();
 
         // game logic here
-        UpdateTick();
+        UpdateTick(delta_time);
 
         RenderFrame();
 
-        Imgui::EndFrame();
+        //Imgui::EndFrame();
         m_current_window->SwapBuffers();
         m_current_window->PollEvents();
     }
@@ -115,32 +147,36 @@ void Engine::UpdateScene()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Engine::UpdateTick()
+void Engine::UpdateTick(float& t_delta_time)
 {
+    m_camera->Tick(t_delta_time, m_current_window->GetCurrentWindow());
+    
     if (!m_renderer->GetShaderProgram())
     {
         std::cout << "Shader program is null!\n";
     }
+
+    m_cube_render_pass.Draw(cubes_draw_commands, *m_camera);
     
-    for (Block* object : m_game_objects)
-    {
-        if (!object)
-        {
-            continue;
-        }
-
-        if (object->IsRenderable())
-        {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(glm::mat4(1.0f), object->GetLocation());
-            
-            m_camera->Matrix(80.f, 0.1f, 300.0f, *m_renderer->GetShaderProgram(), "camMatrix", model);
-
-            m_renderer->Render();
-        }
-
-        object->Update();
-    }
+    // for (Block* object : m_game_objects)
+    // {
+    //     if (!object)
+    //     {
+    //         continue;
+    //     }
+    //
+    //     if (object->IsRenderable())
+    //     {
+    //         glm::mat4 model = glm::mat4(1.0f);
+    //         model = glm::translate(glm::mat4(1.0f), object->GetLocation());
+    //         
+    //         m_camera->Matrix(80.f, 0.1f, 300.0f, *m_renderer->GetShaderProgram(), "camMatrix", model);
+    //
+    //         m_renderer->Render();
+    //     }
+    //
+    //     object->Update();
+    // }
 }
 
 void Engine::RenderFrame()
@@ -180,10 +216,10 @@ void Engine::CreateDefaultCamera()
 
 void Engine::HandleInputs()
 {
-    if (!m_camera)
-        return;
-
-    m_camera->Inputs(m_current_window->GetCurrentWindow());
+    // if (!m_camera)
+    //     return;
+    //
+    // m_camera->Inputs(m_current_window->GetCurrentWindow());
 }
 
 Window* Engine::CreateDefaultWindow()

@@ -10,6 +10,8 @@
 class Shader
 {
 public:
+    Shader() = default;
+    
     GLuint id;
     Shader(const char* t_vertex_file, const char* t_fragment_file);
     void Activate();

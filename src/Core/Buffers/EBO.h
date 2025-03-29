@@ -9,6 +9,7 @@ class EBO
     GLuint m_id;
 
 public:
+    EBO() = default;
     EBO(std::vector<GLuint> t_indices);
 
     void Bind();
