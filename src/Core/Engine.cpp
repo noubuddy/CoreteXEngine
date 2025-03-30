@@ -1,26 +1,9 @@
 #include "Engine.h"
 
-Engine Engine::m_engine_instance;
-
 std::vector<CubeAttribs> cubes_draw_commands;
 
 bool Engine::StartUp()
 {
-    // InitGraphics();
-    // InitWindow();
-    //
-    // m_cube_render_pass.Initialize();
-    //
-    // CreateDefaultShaderProgram();
-    // InitRenderData();
-    // CreateDefaultCamera();
-    // Imgui::Init(m_current_window);
-    //
-    // m_renderer->GetShaderProgram()->Activate();
-    // m_renderer->EnableDepthTest(true);
-    // m_renderer->SetVSyncFreq(0);
-    
-    // should be always at the end
     EngineLoop();
 
     return true;
@@ -78,7 +61,6 @@ void Engine::EngineLoop()
     while (!ShouldStop())
     {
         delta_time = CalculateDeltaTime(previousTime);
-        // std::cout << "Delta time: " << GetDeltaTime() << "\n"; // just for test
 
         //Imgui::BeginFrame();
         // HandleInputs();

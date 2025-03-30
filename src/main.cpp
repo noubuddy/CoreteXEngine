@@ -5,7 +5,10 @@
 int main()
 {
     Application<Engine> engineApp;
-    engineApp.Initialize();
+    
+    if (!engineApp.Initialize())
+        return core::RESULT_FAILURE;
+    
     engineApp.StartUp();
     engineApp.ShutDown();
 

@@ -13,12 +13,6 @@
 #include "Interfaces/IApplication.h"
 #include "Utils/Imgui.h"
 
-/**
- * @brief Provides a pointer to the engine
- * @return Engine* 
- */
-#define ENGINE Engine::GetInstance()
-
 static float delta_time;
 
 class Engine : public IApplication
@@ -30,19 +24,11 @@ public:
     bool StartUp() override;
     bool Initialize() override;
     bool ShutDown() override;
-    // Engine& operator=(const Engine&) = delete; // disable assignment operator
-
-    static Engine& GetInstance()
-    {
-        return m_engine_instance;
-    }
 
     void CreateDefaultGameWorld();
     static float GetDeltaTime();
 
 private:
-
-    static Engine m_engine_instance;
     
     void EngineLoop();
     

@@ -138,6 +138,7 @@ file(GLOB_RECURSE no_group_source_files
     "${SRC_DIR}/*.cpp"
     "${SRC_DIR}/*.c"
     "${SRC_DIR}/*.h"
+    "${SRC_DIR}/*.hpp"
     "${SRC_DIR}/*.inl"
     "${SRC_DIR}/*.vert"
     "${SRC_DIR}/*.frag"
