@@ -14,7 +14,7 @@ class TextureArray : public TextureBase
 {
 public:
     TextureArray() = default;
-    TextureArray(std::vector<std::string> t_images, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type);
+    TextureArray(std::vector<core::String> t_images, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type);
 };
 
 #endif

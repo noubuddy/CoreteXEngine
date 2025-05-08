@@ -5,7 +5,7 @@ void DrawCubesRenderPass::Initialize()
     m_vertex_attribute_object.Init();
     m_shader_program = Shader("src/Core/Graphics/Shader/Shaders/default.vert", "src/Core/Graphics/Shader/Shaders/default.frag");
 
-    std::vector<std::string> imagePaths =
+    std::vector<core::String> imagePaths =
     {
         "resources/block.jpg", "resources/block.jpg", "resources/block.jpg",
         "resources/block.jpg", "resources/block-top.jpg", "resources/block.jpg"
@@ -43,7 +43,7 @@ void DrawCubesRenderPass::Draw(std::vector<CubeAttribs>& t_cubes_draw_commands, 
     for (auto& drawCommand : t_cubes_draw_commands)
     {
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(glm::mat4(1.0f), drawCommand.position);
+        model = glm::translate(glm::mat4(1.0f), drawCommand.position.ToVec3());
         t_camera.Matrix(80.f, 0.1f, 300.0f, m_shader_program, "camMatrix", model);
 
         m_vertex_attribute_object.Bind();

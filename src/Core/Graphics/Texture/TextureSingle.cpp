@@ -1,12 +1,12 @@
 ﻿#include "TextureSingle.h"
 
-TextureSingle::TextureSingle(const char* t_image, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type) : TextureBase(t_tex_type, t_slot, t_format, t_pixel_type)
+TextureSingle::TextureSingle(core::String& t_image, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type) : TextureBase(t_tex_type, t_slot, t_format, t_pixel_type)
 {
     type = t_tex_type;
 
     int imgWidth, imgHeight, colorChannelsNumber;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *bytes = stbi_load(t_image, &imgWidth, &imgHeight, &colorChannelsNumber, 0);
+    unsigned char *bytes = stbi_load(t_image.GetData(), &imgWidth, &imgHeight, &colorChannelsNumber, 0);
 
     glGenTextures(1, &id);
     glActiveTexture(t_slot);

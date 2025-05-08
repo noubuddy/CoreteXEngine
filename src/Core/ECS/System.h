@@ -4,11 +4,10 @@
 #include "Types.h"
 #include <set>
 
-
 class System
 {
 public:
-	std::set<Entity> mEntities;
+	std::set<Entity> entities;
 };
 
 #endif

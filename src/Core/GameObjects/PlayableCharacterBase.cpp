@@ -5,7 +5,7 @@ PlayableCharacterBase::PlayableCharacterBase() : ObjectBase()
     
 }
 
-PlayableCharacterBase::PlayableCharacterBase(glm::vec3 t_location, glm::vec3 t_rotation, glm::vec3 t_scale) : ObjectBase(t_location, t_rotation, t_scale)
+PlayableCharacterBase::PlayableCharacterBase(math::vec3f32 t_location, math::vec3f32 t_rotation, math::vec3f32 t_scale) : ObjectBase(t_location, t_rotation, t_scale)
 {
     
 }

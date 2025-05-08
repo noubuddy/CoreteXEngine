@@ -1,6 +1,9 @@
 #include "Engine.h"
 
+#include "ECS/Coordinator.h"
+
 std::vector<CubeAttribs> cubes_draw_commands;
+// extern Coordinator g_coordinator;
 
 bool Engine::StartUp()
 {
@@ -61,6 +64,7 @@ void Engine::EngineLoop()
     while (!ShouldStop())
     {
         delta_time = CalculateDeltaTime(previousTime);
+        // g_coordinator.GetSystem<CameraControlSystem>();
 
         //Imgui::BeginFrame();
         // HandleInputs();
@@ -107,7 +111,7 @@ void Engine::InitWindow()
 
 void Engine::InitRenderData()
 {
-    std::vector<std::string> imagePaths =
+    std::vector<core::String> imagePaths =
 {
         "resources/block.jpg", "resources/block.jpg", "resources/block.jpg",
         "resources/block.jpg", "resources/block-top.jpg", "resources/block.jpg"

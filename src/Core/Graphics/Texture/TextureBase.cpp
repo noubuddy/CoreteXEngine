@@ -6,9 +6,9 @@ TextureBase::TextureBase(GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLen
 
 TextureBase::~TextureBase() = default;
 
-void TextureBase::TexUnit(Shader& t_shader, const char* t_uniform, GLuint t_unit)
+void TextureBase::TexUnit(Shader& t_shader, core::String t_uniform, GLuint t_unit)
 {
-    GLuint texUni = glGetUniformLocation(t_shader.id, t_uniform);
+    GLuint texUni = glGetUniformLocation(t_shader.id, t_uniform.GetData());
     t_shader.Activate();
     glUniform1i(texUni, t_unit);
 }

@@ -1,6 +1,6 @@
 #include "TextureArray.h"
 
-TextureArray::TextureArray(std::vector<std::string> t_images, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type) : TextureBase(t_tex_type, t_slot, t_format, t_pixel_type)
+TextureArray::TextureArray(std::vector<core::String> t_images, GLenum t_tex_type, GLenum t_slot, GLenum t_format, GLenum t_pixel_type) : TextureBase(t_tex_type, t_slot, t_format, t_pixel_type)
 {
     type = t_tex_type;
     
@@ -8,9 +8,9 @@ TextureArray::TextureArray(std::vector<std::string> t_images, GLenum t_tex_type,
     std::vector<unsigned char*> imagesData;
     stbi_set_flip_vertically_on_load(true);
     
-    for (const std::string& path : t_images)
+    for (const core::String& path : t_images)
     {
-        unsigned char* bytes = stbi_load(path.c_str(), &imgWidth, &imgHeight, &colorChannelsNumber, 4);
+        unsigned char* bytes = stbi_load(path.GetData(), &imgWidth, &imgHeight, &colorChannelsNumber, 4);
         if (bytes != nullptr)
         {
             imagesData.push_back(bytes);

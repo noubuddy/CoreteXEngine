@@ -1,6 +1,8 @@
 ﻿#ifndef CORE_CLASS_H
 #define CORE_CLASS_H
 
+#define FINLINE __forceinline
+
 #include "Data/Types.h"
 
 namespace core

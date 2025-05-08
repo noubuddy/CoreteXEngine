@@ -75,6 +75,12 @@ public:
 		return mComponentManager->GetComponent<T>(entity);
 	}
 
+	// template<typename T>
+	// std::shared_ptr<T> GetSystem()
+	// {
+	// 	return mSystemManager->GetSystem<T>();
+	// }
+
 	template<typename T>
 	ComponentType GetComponentType()
 	{

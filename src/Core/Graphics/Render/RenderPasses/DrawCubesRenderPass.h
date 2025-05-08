@@ -13,10 +13,11 @@
 #include "../../Camera/Camera.h"
 
 #include "../../Shader/Shader.h"
+#include "../../../Data/Types.h"
 
 struct CubeAttribs
 {
-    glm::vec3 position;
+    math::vec3f32 position;
 };
 
 class DrawCubesRenderPass

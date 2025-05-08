@@ -6,6 +6,7 @@
 #include <any>
 #include <memory>
 #include <unordered_map>
+#include "../Data/String.h"
 
 
 class ComponentManager
@@ -14,7 +15,7 @@ public:
 	template<typename T>
 	void RegisterComponent()
 	{
-		const char* typeName = typeid(T).name();
+		core::String typeName = typeid(T).name();
 
 		assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Registering component type more than once.");
 
@@ -27,7 +28,7 @@ public:
 	template<typename T>
 	ComponentType GetComponentType()
 	{
-		const char* typeName = typeid(T).name();
+		core::String typeName = typeid(T).name();
 
 		assert(mComponentTypes.find(typeName) != mComponentTypes.end() && "Component not registered before use.");
 
@@ -63,15 +64,15 @@ public:
 	}
 
 private:
-	std::unordered_map<const char*, ComponentType> mComponentTypes{};
-	std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
+	std::unordered_map<core::String, ComponentType> mComponentTypes{};
+	std::unordered_map<core::String, std::shared_ptr<IComponentArray>> mComponentArrays{};
 	ComponentType mNextComponentType{};
 
 
 	template<typename T>
 	std::shared_ptr<ComponentArray<T>> GetComponentArray()
 	{
-		const char* typeName = typeid(T).name();
+		core::String typeName = typeid(T).name();
 
 		assert(mComponentTypes.find(typeName) != mComponentTypes.end() && "Component not registered before use.");
 

@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <iostream>
 #include <ostream>
+#include "./../../../Data/String.h"
 
 #if PLATFORM_WINDOWS
 #include <windows.h>
@@ -21,32 +22,32 @@ namespace Assertions
     public:
         Assertions() = delete;
 
-        static void Check(bool t_expr, const char* t_expr_str, const char* file, int line)
+        static void Check(bool t_expr, const core::String& t_expr_str, const core::String& file, int line)
         {
             CheckImpl(t_expr, t_expr_str, file, line);
         }
 
     private:
-        static void CheckImpl(bool t_expr, const char* t_expr_str, const char* file, int line)
+        static void CheckImpl(bool t_expr, const core::String& t_expr_str, const core::String& file, int line)
         {
             if (!t_expr)
             {
-                std::string errMsg = FormatAssertMessage(t_expr_str, file, line);
+                core::String errMsg = FormatAssertMessage(t_expr_str, file, line);
 
                 #if PLATFORM_WINDOWS
                 {
-                    MessageBox(NULL, std::wstring(errMsg.begin(), errMsg.end()).c_str(), L"Assertion failed!", MB_OK);
+                    MessageBox(NULL, std::wstring(errMsg.Begin(), errMsg.End()).c_str(), L"Assertion failed!", MB_OK);
                     exit(EXIT_FAILURE);
                 }
                 #endif
             }
         }
 
-        static std::string FormatAssertMessage(const char* t_expr_str, const char* file, int line)
+        static core::String FormatAssertMessage(const core::String& t_expr_str, const core::String& file, int line)
         {
             char msg[CHECK_MSG_LENGTH];
-            snprintf(msg, CHECK_MSG_LENGTH, "Assertion failed: %s\nFile: %s, Line: %d", t_expr_str, file, line);
-            return std::string(msg);
+            snprintf(msg, CHECK_MSG_LENGTH, "Assertion failed: %s\nFile: %s, Line: %d", t_expr_str.GetData(), file.GetData(), line);
+            return core::String(msg);
         }
     };
 }

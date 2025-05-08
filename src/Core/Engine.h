@@ -12,6 +12,7 @@
 #include "Graphics/Render/RenderPasses/DrawCubesRenderPass.h"
 #include "Interfaces/IApplication.h"
 #include "Utils/Imgui.h"
+#include "Data/String.h"
 
 static float delta_time;
 

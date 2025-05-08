@@ -17,7 +17,7 @@ glm::mat4 Camera::GetViexMatrix()
     return glm::lookAt(position, position + orientation, up);
 }
 
-void Camera::Matrix(float t_fov_deg, float t_near_plane, float t_far_plane, Shader& t_shader, const char* t_uniform, glm::mat4 t_model)
+void Camera::Matrix(float t_fov_deg, float t_near_plane, float t_far_plane, Shader& t_shader, core::String t_uniform, glm::mat4 t_model)
 {
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
@@ -27,7 +27,7 @@ void Camera::Matrix(float t_fov_deg, float t_near_plane, float t_far_plane, Shad
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     projection = glm::perspective(glm::radians(t_fov_deg), aspectRatio, t_near_plane, t_far_plane);
 
-    glUniformMatrix4fv(glGetUniformLocation(t_shader.id, t_uniform), 1, GL_FALSE, glm::value_ptr(projection * view * t_model));
+    glUniformMatrix4fv(glGetUniformLocation(t_shader.id, t_uniform.GetData()), 1, GL_FALSE, glm::value_ptr(projection * view * t_model));
 }
 
 void Camera::Inputs(GLFWwindow* t_window, float& t_delta_time)

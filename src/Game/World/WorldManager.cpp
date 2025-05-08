@@ -51,7 +51,7 @@ void WorldManager::GenerateWorldData()
             float afterDotValue = static_cast<int>(std::floor(std::fabs(noiseValue) * 10)) % 10;
 
             Block* block = new Block();
-            block->SetLocation(glm::vec3(x * CUBE_SIZE, afterDotValue * CUBE_SIZE, y * CUBE_SIZE));
+            block->SetLocation(math::vec3f32(x * CUBE_SIZE, afterDotValue * CUBE_SIZE, y * CUBE_SIZE));
 
             m_world_data->push_back(block);
         }

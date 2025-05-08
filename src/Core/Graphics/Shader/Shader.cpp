@@ -1,12 +1,12 @@
 ﻿#include "Shader.h"
 
-Shader::Shader(const char* t_vertex_file, const char* t_fragment_file)
+Shader::Shader(core::String t_vertex_file, core::String t_fragment_file)
 {
-    std::string vertexCode = ReadFile(t_vertex_file);
-    std::string fragmentCode = ReadFile(t_fragment_file);
+    core::String vertexCode = ReadFile(t_vertex_file);
+    core::String fragmentCode = ReadFile(t_fragment_file);
 
-    const char *vertexShaderSource = vertexCode.c_str();
-    const char *fragmentShaderSource = fragmentCode.c_str();
+    const char* vertexShaderSource = vertexCode.GetData();
+    const char* fragmentShaderSource = fragmentCode.GetData();
 
     const GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
@@ -36,18 +36,18 @@ void Shader::Delete()
     glDeleteProgram(id);
 }
 
-std::string Shader::ReadFile(const char* t_filename)
+core::String Shader::ReadFile(core::String& t_filename)
 {
-    std::ifstream in(t_filename, std::ios::binary);
+    std::ifstream in(t_filename.GetData(), std::ios::binary);
 
     if (!in)
         throw errno;
 
-    std::string content;
+    core::String content;
     in.seekg(0, std::ios::end);
-    content.resize(in.tellg());
+    content.Resize(in.tellg());
     in.seekg(0, std::ios::beg);
-    in.read(&content[0], content.size());
+    in.read(&content[0], content.Size());
     in.close();
     return content;
 }

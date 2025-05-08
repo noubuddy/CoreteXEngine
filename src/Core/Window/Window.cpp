@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window(unsigned short t_width, unsigned short t_height, const char* t_title, GLFWmonitor* t_monitor, GLFWwindow* t_share)
+Window::Window(unsigned short t_width, unsigned short t_height, const core::String t_title, GLFWmonitor* t_monitor, GLFWwindow* t_share)
 {
     m_width = t_width;
     m_height = t_height;
@@ -16,7 +16,7 @@ Window::~Window()
 
 GLFWwindow* Window::CreateWindow()
 {
-    m_window = glfwCreateWindow(m_width, m_height, m_title, m_monitor, nullptr);
+    m_window = glfwCreateWindow(m_width, m_height, m_title.GetData(), m_monitor, nullptr);
     return m_window;
 }
 
