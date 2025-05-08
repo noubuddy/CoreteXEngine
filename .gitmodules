@@ -1,0 +1,3 @@
+[submodule "thirdparty/unex"]
+	path = thirdparty/unex
+	url = https://github.com/noubuddy/unex.git
