@@ -11,6 +11,10 @@ set(PROJECT_NAME CorteXngin)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Platform-specific macros
 if(WIN32)
     add_compile_definitions(PLATFORM_WINDOWS)
@@ -153,6 +157,7 @@ set(imgui_source_files
     ${IMGUI_BACKENDS}
 )
 
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/unex/include)
 include_directories(${IMGUI_DIR} ${IMGUI_DIR}/backends)
 
 #source_group("" FILES ${no_group_source_files})
